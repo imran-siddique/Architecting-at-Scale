@@ -7,21 +7,25 @@ The running example from *Architecting at Scale*, as one codebase that evolves a
 ShopFlow is in a different architectural state in every chapter, and those states are the point
 of the book: each one is the consequence of the previous chapter's solution.
 
-**The tree carries the union; tags mark each chapter's state.**
+**The tree carries the union, and each chapter's code is named for its chapter.**
 
-```bash
-git tag --list 'ch*'      # the chapter states that exist so far
-git checkout ch1-monolith
-```
+| Chapter | Where its code lives |
+|---------|----------------------|
+| 1 — the monolith | `services/monolith` |
+| 2 — statelessness, correlation IDs | `packages/platform` |
+| 9 — caching | `packages/cache` |
 
-So `services/monolith` (Chapter 1) and `packages/cache` (Chapter 9) both live here, and the shared
-infrastructure — the schema, the compose file — carries what every chapter needs so all of it
-still runs against one database. Where a column or a service exists because of a specific chapter,
-a comment says which.
+Shared infrastructure — the schema, the compose file — carries what every chapter needs, so all of
+it still runs against one database. Where a column or a service exists because of a specific
+chapter, a comment says which.
 
 A tree that only ever held one state would read more purely, but it means a reader on Chapter 9
-cannot see the Chapter 1 pathology that chapter is arguing against. This way both are present and
-the tags still recover any single state.
+cannot see the Chapter 1 pathology that chapter is arguing against. This way both are present.
+
+> **On tags.** There are none yet, deliberately. Chapters were written as the manuscript was
+> finished rather than in order, so the commit history is not in chapter order and a `ch1-monolith`
+> tag would point at a tree that already contained Chapter 9. A tag series is worth adding once all
+> sixteen states are in and can be laid down honestly — until then, the table above is the map.
 
 ## The code is deliberately not fixed ahead of the book
 

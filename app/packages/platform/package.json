@@ -1,0 +1,13 @@
+{
+  "name": "@shopflow/platform",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Chapter 2: the shared platform primitives every service needs - externalized session state and the correlation ID.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": { ".": "./dist/index.js" },
+  "scripts": { "build": "tsc -p tsconfig.json" },
+  "dependencies": { "express": "^4.19.2" },
+  "devDependencies": { "@types/express": "^4.17.21" }
+}
