@@ -20,10 +20,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      # npm install rather than npm ci: no lockfile is committed yet. Run `npm install` once
-      # locally and commit app/package-lock.json to make builds reproducible and re-enable
-      # dependency caching here.
-      - run: npm install
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
       - name: Build (typecheck)
         run: npx tsc --build
       - name: Unit tests
@@ -46,7 +45,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: npm install
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
       - name: Integration tests
         run: npx vitest run
         env:
