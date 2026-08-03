@@ -17,6 +17,7 @@ of the book: each one is the consequence of the previous chapter's solution.
 | 4: edge, CDN and steering | `packages/cache/src/edge` |
 | 5: micro-frontends | `packages/shell` |
 | 6: decomposition | `packages/decomposition` |
+| 7: resilience | `packages/resilience` |
 | 9: caching | `packages/cache` |
 
 Shared infrastructure (the schema, the compose file) carries what every chapter needs, so all of
@@ -49,6 +50,7 @@ app/
     security/         Chapter 3 - workload identity, default-deny policy
     shell/            Chapter 5 - error boundaries, event bus, budgets
     decomposition/    Chapter 6 - seam signals, Strangler Fig, contracts
+    resilience/       Chapter 7 - retries, breakers, bulkheads, shedding
     cache/            Chapter 4 (edge/) + Chapter 9 (Redis tier)
   workers/            queue consumers (Chapter 8 onward)
   db/schema.sql       the relational schema, union across chapters
@@ -112,6 +114,20 @@ implementation and watch which argument breaks.
 | `adding a new service grants it nothing implicitly` | What makes Assume Breach tractable |
 | `in the castle, one compromise reaches the ENTIRE fleet` | The perimeter model, measured rather than asserted |
 | `in the hotel, the same compromise reaches only its grants` | ≤ 2 of 6 versus 100%. This is the return on the ~20ms mTLS cost |
+
+**Chapter 7: resilience**
+
+| Test | The claim it proves |
+|------|---------------------|
+| `naive retries TRIPLE the load on a dependency that is merely slow` | The opening incident as arithmetic. Pricing was never down |
+| `the retry BUDGET is the control that actually caps amplification` | Backoff and jitter only spread load in time. Only the budget reduces it |
+| `a non-idempotent write with no dedup key must NOT be retried` | A duplicate charge is worse than a failed one |
+| `at 10% errors it throttles 25%, not opens` | Before a circuit opens, it should slow down |
+| `below the minimum sample count it does not react at all` | Kills step 1 of the Trigger-Happy feedback loop |
+| `one successful probe does not close the circuit` | Kills step 3: a probe at 10% of normal load proves nothing |
+| `a slow P2 dependency cannot consume the P0 pool` | The bulkhead makes the incident structurally impossible |
+| `an inverted timeout is flagged` | It manufactures retry storms on its own |
+| `at 85% utilization, checkout is served and recommendations are not` | Reverse priority shedding, stated as one assertion |
 
 **Chapter 6: decomposition**
 
