@@ -150,11 +150,11 @@ export class WorkloadIdentity {
       return { ok: false, reason: 'malformed' };
     }
     if (
-      typeof claims.sub !== 'string' |  |
-      typeof claims.iss !== 'string' |  |
-      typeof claims.aud !== 'string' |  |
-      !Array.isArray(claims.scope) |  |
-      typeof claims.iat !== 'number' |  |
+      typeof claims.sub !== 'string' ||
+      typeof claims.iss !== 'string' ||
+      typeof claims.aud !== 'string' ||
+      !Array.isArray(claims.scope) ||
+      typeof claims.iat !== 'number' ||
       typeof claims.exp !== 'number'
     ) {
       return { ok: false, reason: 'malformed' };
