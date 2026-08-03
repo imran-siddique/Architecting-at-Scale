@@ -36,6 +36,38 @@ export function connectionsInUse(arrivalsPerSecond: number, holdMs: number): num
   return arrivalsPerSecond * (holdMs / 1000);
 }
 
+/**
+ * A tiny seeded PRNG (mulberry32). Present so the simulation can be stochastic *and*
+ * reproducible: the same seed gives the same numbers on every machine and every run, which is
+ * the only way a queueing assertion belongs in a test suite.
+ */
+function mulberry32(seed: number): () => number {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/**
+ * How arrivals are spaced.
+ *
+ * This choice is not a modelling detail — it decides whether the system has a knee at all.
+ *
+ * - `deterministic`: perfectly even spacing. A D/D/c queue has **zero** queueing below 100%
+ *   utilization and unbounded queueing above it. A step function, not a curve.
+ * - `poisson`: exponentially distributed gaps, which is what independent users produce. Now
+ *   arrivals clump, a clump can exceed the pool even when the average does not, and waiting
+ *   time grows as utilization approaches 1.
+ *
+ * Figure 1.1's knee comes from the second one. That is the substance of the chapter's warning
+ * about reading headroom off a dashboard: 90% average utilization is not 10% of headroom,
+ * because the average is not what arrives.
+ */
+export type ArrivalModel = 'deterministic' | 'poisson';
+
 export interface SimResult {
   /** Requests that completed within the observation window. */
   completed: number;
@@ -50,12 +82,10 @@ export interface SimResult {
 }
 
 /**
- * A deterministic D/D/c queue: arrivals at a fixed interval, `poolSize` servers, a fixed
- * service time of `holdMs`. Every request takes a connection for the whole query, which is
- * precisely the property that makes the legacy search route dangerous.
- *
- * Deterministic arrivals are the *kindest* possible assumption — real traffic is bursty, which
- * makes the cliff arrive sooner. Chapter 1's point survives the generous model.
+ * A `c`-server queue with a fixed service time of `holdMs`: every request takes a connection
+ * for the whole query, which is precisely the property that makes the legacy search route
+ * dangerous. Arrival spacing is chosen by `arrivals` — see `ArrivalModel`, because that choice
+ * is what decides whether there is a knee.
  */
 export function simulate(opts: {
   poolSize: number;
@@ -63,10 +93,20 @@ export function simulate(opts: {
   arrivalsPerSecond: number;
   /** How long to observe, in seconds. */
   durationSeconds: number;
+  /** Defaults to `poisson`, the model that reflects independent users. */
+  arrivals?: ArrivalModel;
+  /** Seed for the arrival process, so runs are reproducible. */
+  seed?: number;
 }): SimResult {
   const { poolSize, holdMs, arrivalsPerSecond, durationSeconds } = opts;
-  const intervalMs = 1000 / arrivalsPerSecond;
+  const model = opts.arrivals ?? 'poisson';
+  const rand = mulberry32(opts.seed ?? 42);
+  const meanGapMs = 1000 / arrivalsPerSecond;
   const total = Math.floor(durationSeconds * arrivalsPerSecond);
+
+  /** Exponential inter-arrival gap with the given mean. */
+  const nextGap = () =>
+    model === 'deterministic' ? meanGapMs : -Math.log(1 - rand()) * meanGapMs;
 
   // Each slot holds the time a connection next becomes free. A min-heap would be faster; at
   // test sizes a flat array scan is clearer and fast enough.
@@ -74,23 +114,24 @@ export function simulate(opts: {
   const waits: number[] = [];
   let peak = 0;
 
+  let arrival = 0;
   for (let i = 0; i < total; i++) {
-    const arrival = i * intervalMs;
+    arrival += nextGap();
 
-    // Take the connection that frees up soonest.
+    // Take the connection that frees up soonest, and count how many are still busy while we
+    // are already walking the array.
     let slot = 0;
-    for (let s = 1; s < poolSize; s++) {
-      if (freeAt[s]! < freeAt[slot]!) slot = s;
+    let busy = 0;
+    for (let s = 0; s < poolSize; s++) {
+      const f = freeAt[s]!;
+      if (f < freeAt[slot]!) slot = s;
+      if (f > arrival) busy++;
     }
+    if (busy > peak) peak = busy;
 
     const start = Math.max(arrival, freeAt[slot]!);
     waits.push(start - arrival);
     freeAt[slot] = start + holdMs;
-
-    // Concurrency at this instant: how many connections are still busy.
-    let busy = 0;
-    for (let s = 0; s < poolSize; s++) if (freeAt[s]! > arrival) busy++;
-    if (busy > peak) peak = busy;
   }
 
   waits.sort((a, b) => a - b);

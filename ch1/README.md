@@ -48,10 +48,19 @@ Little's Law rather than guessing: sustainable throughput = pool size ÷ hold ti
 traffic figure of ~150 req/s, which is how "90% utilized" becomes actionable instead of merely
 alarming.
 
-**The curve has a knee.** A 1.9× traffic increase produces a far-larger-than-1.9× latency
-increase, and past the tipping point the queue has *no steady state* — wait time grows with
-however long you watch it. That distinction is why Figure 1.1 goes vertical instead of levelling
-off at a worse number. A slow system and a system without equilibrium are different problems.
+**The knee is caused by burstiness, not by utilization alone.** This one was learned the hard
+way — the first version of the suite modelled arrivals as perfectly evenly spaced and then
+asserted a knee. CI failed it, correctly: a D/D/c queue has *exactly zero* queueing below 100%
+utilization and unbounded queueing above it. A step function, no curve anywhere.
+
+So the suite now contrasts two runs with an identical pool, an identical hold, and an identical
+average arrival rate of 150 req/s — differing only in whether arrivals are evenly spaced or
+independent. Smooth arrivals at 90% utilization: nobody queues at all. Bursty arrivals at the
+same 90%: requests queue. Once arrivals clump, a clump can exceed the pool while the average
+still looks comfortable, which is the whole reason **90% average utilization is not 10% of
+headroom.** Past the tipping point the queue has no steady state at all — wait time grows with
+however long you watch it, which is the difference between a slow system and a system without
+equilibrium.
 
 **The full table scan is the mechanism.**
 [`test/full-table-scan.spec.ts`](../app/services/monolith/test/full-table-scan.spec.ts) counts
@@ -59,11 +68,8 @@ rows touched by both access paths over the same data. A leading-wildcard `LIKE` 
 rows because a B-tree is ordered by prefix and `'%oak%'` has no prefix to seek on. The final test
 closes the causal chain: rows read → query duration → connection held → pool exhausted.
 
-The uncomfortable one is the last test in `saturation.spec.ts`: **at the snapshot's own 90%
-utilization, a deterministic arrival pattern still shows almost no queueing.** The system looks
-healthy right up to the edge. Real traffic is bursty rather than deterministic, so the margin the
-dashboard implies does not exist — which is why the chapter argues for measuring headroom rather
-than watching latency.
+The simulation is seeded, so every number above is reproducible and reviewable rather than a
+one-off run someone reports.
 
 ## Running it
 
