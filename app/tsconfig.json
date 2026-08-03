@@ -1,6 +1,11 @@
 {
   "files": [],
   "references": [
-    { "path": "packages/cache" }
+    {
+      "path": "packages/cache"
+    },
+    {
+      "path": "services/monolith"
+    }
   ]
 }

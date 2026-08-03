@@ -1,9 +1,9 @@
-# Infrastructure for ShopFlow at its Chapter 9 state.
+# Infrastructure for ShopFlow.
 #
-# Chapter 9 adds Redis in front of a MySQL primary that was buckling under read amplification
-# (5 inventory reads per order, read IOPS at 78% of provisioned). Elasticsearch does not appear
-# until Chapter 10, and the broker is RabbitMQ per the Chapter 8 decision - Kafka is the
-# migration target on a measured signal, not a default.
+# Each chapter adds only what it needs, and the tree carries the union so every chapter's code
+# still runs. MySQL is Chapter 1. Redis arrives in Chapter 9 to absorb the read amplification
+# Chapter 8 created. The broker is RabbitMQ per the Chapter 8 decision - Kafka is the migration
+# target on a measured signal, not a default. Elasticsearch arrives in Chapter 10.
 services:
   mysql:
     image: mysql:8.4
@@ -13,11 +13,15 @@ services:
     ports: ['3306:3306']
     volumes:
       - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    # 500 connections: the ceiling Chapter 1's telemetry is measured against, and the constraint
+    # its saturation tests derive the ~166 req/s tipping point from.
+    command: ['--max-connections=500']
     healthcheck:
       test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-pshopflow']
       interval: 5s
       retries: 12
 
+  # Chapter 9.
   redis:
     image: redis:7-alpine
     ports: ['6379:6379']
@@ -29,6 +33,7 @@ services:
       interval: 5s
       retries: 12
 
+  # Chapter 8.
   rabbitmq:
     image: rabbitmq:3.13-management-alpine
     ports: ['5672:5672', '15672:15672']
