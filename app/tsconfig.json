@@ -5,6 +5,9 @@
       "path": "packages/cache"
     },
     {
+      "path": "packages/platform"
+    },
+    {
       "path": "services/monolith"
     }
   ]
