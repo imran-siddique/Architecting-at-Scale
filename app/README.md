@@ -14,6 +14,7 @@ of the book: each one is the consequence of the previous chapter's solution.
 | 1 — the monolith | `services/monolith` |
 | 2 — statelessness, correlation IDs | `packages/platform` |
 | 3 — Zero Trust | `packages/security` |
+| 4 — edge, CDN, steering | `packages/cache/src/edge` |
 | 9 — caching | `packages/cache` |
 
 Shared infrastructure — the schema, the compose file — carries what every chapter needs, so all of
@@ -44,7 +45,7 @@ app/
   packages/
     platform/         Chapter 2 - session store, correlation ID
     security/         Chapter 3 - workload identity, default-deny policy
-    cache/            Chapter 9 - cache-aside, herd defence, invalidation
+    cache/            Chapter 4 (edge/) + Chapter 9 (Redis tier)
   workers/            queue consumers (Chapter 8 onward)
   db/schema.sql       the relational schema, union across chapters
   docker-compose.yml  MySQL (Ch1), RabbitMQ (Ch8), Redis (Ch9)
@@ -97,6 +98,16 @@ implementation and watch which argument breaks.
 | `adding a new service grants it nothing implicitly` | What makes Assume Breach tractable |
 | `in the castle, one compromise reaches the ENTIRE fleet` | The perimeter model, measured rather than asserted |
 | `in the hotel, the same compromise reaches only its grants` | ≤ 2 of 6 versus 100%. This is the return on the ~20ms mTLS cost |
+
+**Chapter 4 — the edge**
+
+| Test | The claim it proves |
+|------|---------------------|
+| `50 PoPs missing simultaneously produce exactly ONE origin fetch` | The origin shield. Two tiers of collapse are needed — per-PoP and at the shield — and neither is sufficient alone |
+| `when the origin is DOWN, a stale entry is served — not a 404` | Availability beats freshness, as mechanism rather than sentiment |
+| `past the stale window it fails rather than lying forever` | Stale-while-revalidate is a *bounded* promise |
+| `a region that buckles is caught at 1%` | Baby-step steering exposes 1% of requests to the failure |
+| `the same failure under a 100% flip exposes EVERY request` | The same failure, two orders of magnitude apart |
 
 **Chapter 9 — caching**
 

@@ -15,3 +15,13 @@ export {
   systemClock,
   noopMetrics,
 } from './ports.js';
+export { OriginShield, type EdgeEntry, type OriginShieldOptions, type ShieldMetrics } from './edge/origin-shield.js';
+export {
+  BABY_STEPS,
+  bigBangShift,
+  shiftTraffic,
+  type RegionHealth,
+  type ShiftResult,
+  type SteeringBudget,
+  type StepOutcome,
+} from './edge/traffic-steering.js';
