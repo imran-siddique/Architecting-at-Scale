@@ -20,7 +20,8 @@
     "infra:up": "docker compose up -d",
     "infra:down": "docker compose down -v",
     "monolith": "npm run -w @shopflow/monolith dev",
-    "test:all": "REDIS_URL=redis://127.0.0.1:6379 vitest run"
+    "test:all": "REDIS_URL=redis://127.0.0.1:6379 vitest run",
+    "verify": "npm ci && tsc --build && vitest run"
   },
   "dependencies": {
     "ioredis": "^5.4.1"
@@ -28,7 +29,7 @@
   "devDependencies": {
     "@types/node": "^20.14.0",
     "typescript": "^5.5.4",
-    "vitest": "^2.0.5"
+    "vitest": "^3.2.7"
   },
   "allowScripts": {
     "esbuild@0.21.5": true

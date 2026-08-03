@@ -61,10 +61,20 @@ The test suite needs nothing but Node 20+:
 
 ```bash
 cd app
-npm install
+npm ci
 npm test          # no infrastructure required
 npm run build     # typecheck + emit
 ```
+
+Before pushing, run the check CI runs, which is not the same thing as `npm test`:
+
+```bash
+npm run verify    # npm ci && tsc --build && vitest run
+```
+
+The difference matters. `npm test` reuses whatever is already in `node_modules`, so it passes
+happily when the lockfile is out of sync with `package.json`. Adding a workspace package changes
+the dependency graph, and only `npm ci` notices.
 
 Infrastructure is only needed for the integration tests and to serve traffic:
 
