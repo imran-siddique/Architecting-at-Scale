@@ -1,7 +1,7 @@
 /**
  * Figure 2.2, executable: sticky sessions versus a stateless fleet with a shared session store.
  *
- * Chapter 2 argues that sticky sessions are a quick fix that trades one problem for two — the
+ * Chapter 2 argues that sticky sessions are a quick fix that trades one problem for two, the
  * Hot Node problem and the Availability Trap. Both are consequences of the routing rule rather
  * than opinions about it, so both can be modelled and asserted.
  *
@@ -20,7 +20,7 @@ export interface Cart {
 export interface FleetResult {
   /** Requests that found their session and were served correctly. */
   served: number;
-  /** Requests whose session was lost — the user is logged out, cart empty. */
+  /** Requests whose session was lost, the user is logged out, cart empty. */
   sessionsLost: number;
   /** Per-instance request counts. The spread is the Hot Node signal. */
   loadPerInstance: number[];

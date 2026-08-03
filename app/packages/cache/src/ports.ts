@@ -14,7 +14,7 @@
 /** A key/value tier with a TTL. Redis in production; a Map in the tests. */
 export interface CacheStore {
   get(key: string): Promise<string | null>;
-  /** `ttlSeconds` is required — an entry with no expiry is a leak, not a cache. */
+  /** `ttlSeconds` is required, an entry with no expiry is a leak, not a cache. */
   set(key: string, value: string, ttlSeconds: number): Promise<void>;
   del(...keys: string[]): Promise<number>;
   /**

@@ -1,6 +1,6 @@
 ## Implementing the Event Bus: Cross-App Communication Without Coupling
 
-When micro-apps need to coordinate—cart updates, authentication changes, notification arrivals—they communicate through an Event Bus. The Event Bus is a publish/subscribe mechanism owned by the Shell that allows micro-apps to emit and listen for domain events without importing each other’s code.
+When micro-apps need to coordinate, cart updates, authentication changes, notification arrivals, they communicate through an Event Bus. The Event Bus is a publish/subscribe mechanism owned by the Shell that allows micro-apps to emit and listen for domain events without importing each other’s code.
 
 The critical constraint: events carry data, not behavior. A micro-app publishes a fact (“item added to cart, new count: 3”). It never publishes an instruction (“re-render your cart badge”). The consuming micro-app decides how and whether to react.
 

@@ -6,7 +6,7 @@ import mysql from 'mysql2/promise';
  * `connectionLimit` is the number from Chapter 1's telemetry snapshot, and it is the ceiling
  * the chapter is really about: every route in this process competes for these 500 connections,
  * so one slow query anywhere starves everything. There is no bulkhead, no per-route budget,
- * and no circuit breaker — those arrive in Chapter 7.
+ * and no circuit breaker, those arrive in Chapter 7.
  */
 export const POOL_SIZE = 500;
 

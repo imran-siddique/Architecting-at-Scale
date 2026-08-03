@@ -4,8 +4,7 @@ import { Router } from 'express';
  * Zombie endpoints.
  *
  * Every one of these is reachable, authenticated by nothing in particular, and called by no
- * client. They are here because Chapter 1's second Architect's Prompt — the Zombie Hunter —
- * exists to find exactly this, and a prompt with nothing to find teaches nothing.
+ * client. They are here because Chapter 1's second Architect's Prompt, the Zombie Hunter, * exists to find exactly this, and a prompt with nothing to find teaches nothing.
  *
  * The cost is not the dead code. It is that each one is attack surface, each one appears in
  * every dependency audit, and each one has to be reasoned about during any refactor because

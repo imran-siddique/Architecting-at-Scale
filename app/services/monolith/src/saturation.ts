@@ -1,7 +1,7 @@
 /**
  * Connection-pool saturation, as arithmetic rather than intuition.
  *
- * Chapter 1's central claim is that the monolith does not degrade gradually — it stays flat
+ * Chapter 1's central claim is that the monolith does not degrade gradually, it stays flat
  * and then goes vertical, and the tipping point is predictable before you reach it. That claim
  * rests on Little's Law (Little, 1961): with a fixed pool and a given hold time, sustainable
  * throughput is pool size divided by hold time. Everything below is that law made executable,
@@ -14,7 +14,7 @@
 /**
  * Sustainable throughput in requests/second for a pool of `poolSize` connections each held
  * for `holdMs`. Above this arrival rate the queue grows without bound and latency is
- * unbounded — it is not "slower", it has no steady state.
+ * unbounded; it is not "slower", it has no steady state.
  *
  * ShopFlow at Chapter 1: 500 connections, ~3s hold -> ~166 req/s.
  */
@@ -54,7 +54,7 @@ function mulberry32(seed: number): () => number {
 /**
  * How arrivals are spaced.
  *
- * This choice is not a modelling detail — it decides whether the system has a knee at all.
+ * This choice is not a modelling detail, it decides whether the system has a knee at all.
  *
  * - `deterministic`: perfectly even spacing. A D/D/c queue has **zero** queueing below 100%
  *   utilization and unbounded queueing above it. A step function, not a curve.
@@ -84,7 +84,7 @@ export interface SimResult {
 /**
  * A `c`-server queue with a fixed service time of `holdMs`: every request takes a connection
  * for the whole query, which is precisely the property that makes the legacy search route
- * dangerous. Arrival spacing is chosen by `arrivals` — see `ArrivalModel`, because that choice
+ * dangerous. Arrival spacing is chosen by `arrivals`, see `ArrivalModel`, because that choice
  * is what decides whether there is a knee.
  */
 export function simulate(opts: {

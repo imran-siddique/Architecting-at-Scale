@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto';
  *
  * Chapter 2 calls this the one non-negotiable requirement of any distributed system: without it,
  * a failure in service D cannot be traced back to the request in service A, and you are guessing.
- * ShopFlow is still a monolith at this point, which is exactly why it goes in now — retrofitting
+ * ShopFlow is still a monolith at this point, which is exactly why it goes in now, retrofitting
  * it after decomposition means retrofitting it across six services at once.
  *
  * The rule from the chapter is "generate at the edge, trust but verify":
@@ -24,7 +24,7 @@ export const CORRELATION_HEADER = 'x-correlation-id';
 
 /**
  * Accepted shape: 8–64 characters of ASCII alphanumerics, hyphen or underscore. A UUID passes.
- * Deliberately narrow — the point is a bounded identifier, not an arbitrary client string.
+ * Deliberately narrow, the point is a bounded identifier, not an arbitrary client string.
  */
 const VALID = /^[A-Za-z0-9_-]{8,64}$/;
 
@@ -38,7 +38,7 @@ export function newCorrelationId(): string {
 
 export interface Resolution {
   correlationId: string;
-  /** How the value was arrived at — worth logging, because a spike in `regenerated` is a signal. */
+  /** How the value was arrived at, worth logging, because a spike in `regenerated` is a signal. */
   source: 'client' | 'minted' | 'regenerated';
 }
 
@@ -58,7 +58,7 @@ export function resolveCorrelationId(headerValue: string | string[] | undefined)
   if (isValidCorrelationId(raw)) {
     return { correlationId: raw, source: 'client' };
   }
-  // Present but unusable. Do not sanitize and keep it — replace it. A partially cleaned
+  // Present but unusable. Do not sanitize and keep it, replace it. A partially cleaned
   // client string is still a client string, and the trace it joins is not yours.
   return { correlationId: newCorrelationId(), source: 'regenerated' };
 }

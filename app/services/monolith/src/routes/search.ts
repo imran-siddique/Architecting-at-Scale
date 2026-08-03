@@ -6,7 +6,7 @@ import { db, POOL_SIZE } from '../db.js';
  *
  * This is the listing from Chapter 1, kept deliberately intact. A simple, synchronous query
  * that worked fine for 100 users and becomes the bottleneck for the whole system at 5,000
- * orders a day. Nothing here is a mistake anyone would flag in review — that is the point of
+ * orders a day. Nothing here is a mistake anyone would flag in review, that is the point of
  * the chapter. It is correct code with a scaling property nobody measured.
  *
  * Do not "fix" this file. Chapter 2 onward is where it gets fixed, and the git history is

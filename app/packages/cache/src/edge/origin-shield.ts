@@ -9,7 +9,7 @@ import { SingleFlight } from '../single-flight.js';
  *
  * The shield is a mid-tier that every point of presence fetches through, so the whole fleet's
  * misses collapse into one origin read. Note that this is the same mechanism as Chapter 9's
- * single-flight, applied one tier up — which is the useful observation, because it means the
+ * single-flight, applied one tier up, which is the useful observation, because it means the
  * herd is not an edge problem or a cache problem but a property of any tier that fronts a
  * slower one. Wherever you have a fan-in, you need a collapse.
  *
@@ -81,7 +81,7 @@ export class OriginShield {
    * Fetch `key` via `popIndex`. `origin` is the only thing that can actually produce data, and
    * every layer above exists to call it as rarely as possible.
    *
-   * Returns the body, or null when nothing can be served — which should be vanishingly rare,
+   * Returns the body, or null when nothing can be served, which should be vanishingly rare,
    * because a stale entry is preferred over a failure.
    */
   async get(popIndex: number, key: string, origin: () => Promise<string>): Promise<string | null> {

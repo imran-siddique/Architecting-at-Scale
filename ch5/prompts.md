@@ -1,4 +1,4 @@
-# Chapter 5 — Architect's Prompts
+# Chapter 5: Architect's Prompts
 
 **Scaling the Modern Web Application – State, Performance, and Micro-Frontends**
 
@@ -7,7 +7,7 @@ straight into whichever assistant you use. Each one carries the *When to use thi
 chapter, because a prompt is only as good as the moment you reach for it.
 
 Before running any of these, replace every `[bracketed placeholder]` with your own data. These
-prompts are deliberately demanding — they ask for a decision with its reasoning, not a summary.
+prompts are deliberately demanding, they ask for a decision with its reasoning, not a summary.
 
 **5 prompts in this chapter.**
 
@@ -22,7 +22,7 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 ---
 
-## Prompt 5.1 — The Micro-Frontend Migration Audit
+## Prompt 5.1: The Micro-Frontend Migration Audit
 
 **When to use this:** Use this prompt during the planning phase of a Micro-Frontend migration to identify hidden coupling and generate a prioritized decomposition roadmap.
 
@@ -38,7 +38,7 @@ Identify: (1) Implicit cross-module dependencies that would break if modules wer
 Output a Migration Risk Matrix with columns: Module Name, Shared Dependencies Count, Estimated Extraction Complexity (Low/Medium/High), and Recommended Extraction Order.
 ```
 
-## Prompt 5.2 — State Architecture Audit
+## Prompt 5.2: State Architecture Audit
 
 **When to use this:** Use this prompt when migrating from a monolithic global store to a micro-frontend state architecture, to identify which state should be shared vs. owned.
 
@@ -56,7 +56,7 @@ For each Cross-App Coordination item, define the event contract: event name, pay
 Output a State Migration Matrix with columns: State Slice, Current Owner, Target Owner, Communication Mechanism, Fallback Strategy, Migration Risk (Low/Medium/High).
 ```
 
-## Prompt 5.3 — Rendering Strategy Assignment
+## Prompt 5.3: Rendering Strategy Assignment
 
 **When to use this:** Use this prompt when auditing an existing application's rendering approach or planning a new application's route-level rendering assignments.
 
@@ -70,7 +70,7 @@ For each route, recommend the optimal rendering strategy (CSR, SSR, SSG, or ISR)
 Output a Rendering Assignment Table with columns: Route, Current Strategy, Recommended Strategy, Revalidation TTL (if ISR), Expected LCP Improvement, and Migration Complexity (Low/Medium/High).
 ```
 
-## Prompt 5.4 — Performance Budget Audit
+## Prompt 5.4: Performance Budget Audit
 
 **When to use this:** Use this prompt during a quarterly performance review or before a major feature launch to identify the highest-impact optimization targets.
 
@@ -88,7 +88,7 @@ Identify: (1) The top 3 Long Tasks contributing to main thread blocking. (2) Dep
 Output a Performance Improvement Roadmap with columns: Optimization, Estimated Impact on LCP, Estimated Impact on TTI, Implementation Effort (Low/Medium/High), and Priority Order.
 ```
 
-## Prompt 5.5 — Resilience Audit
+## Prompt 5.5: Resilience Audit
 
 **When to use this:** Use this prompt before a major traffic event (holiday sale, product launch, marketing campaign) to validate that your UI can survive partial backend failures.
 

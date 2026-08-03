@@ -8,7 +8,7 @@ import { entityKey } from '../src/keys.js';
  * Integration coverage for the Redis adapter.
  *
  * Skipped unless REDIS_URL is set, so `npm test` still passes on a laptop with nothing
- * installed. CI sets it against a Redis service container — see .github/workflows/app-ci.yml.
+ * installed. CI sets it against a Redis service container, see .github/workflows/app-ci.yml.
  *
  * The unit suite proves the *logic*; this proves the two things only a real server can:
  * that SET..EX..NX is genuinely atomic, and that TTLs actually expire.
@@ -44,7 +44,7 @@ suite('RedisStore against a real Redis', () => {
     expect(await store.get(`${prefix}:absent`)).toBeNull();
   });
 
-  it('actually expires an entry — the backstop for a lost invalidation event', async () => {
+  it('actually expires an entry, the backstop for a lost invalidation event', async () => {
     const k = `${prefix}:ttl`;
     await store.set(k, 'transient', 1);
     expect(await store.get(k)).toBe('transient');
@@ -52,7 +52,7 @@ suite('RedisStore against a real Redis', () => {
     expect(await store.get(k)).toBeNull();
   });
 
-  it('CLAIM: setIfAbsent is atomic — exactly one of N concurrent callers wins the lock', async () => {
+  it('CLAIM: setIfAbsent is atomic, exactly one of N concurrent callers wins the lock', async () => {
     // This is the property the distributed herd lock rests on. An EXISTS-then-SET
     // implementation passes a sequential test and fails this one.
     const k = `${prefix}:lock`;

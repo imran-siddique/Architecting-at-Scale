@@ -4,10 +4,10 @@
  * Chapter 3's tactic is the allowlist: explicitly deny all ingress by default, then permit the
  * specific calls the architecture actually requires. The chapter uses OPA/Rego for this in
  * production; what is here is the same decision model in TypeScript so the *properties* can be
- * asserted — and so the Tool Tax the chapter names (a declarative language to learn and a policy
+ * asserted, and so that the Tool Tax the chapter names (a declarative language to learn and a policy
  * engine in the deploy path) is visible as a real trade rather than a footnote.
  *
- * The terminology is deliberate. `allowlist` and `denylist`, never the older pair — see the
+ * The terminology is deliberate. `allowlist` and `denylist`, never the older pair. See the
  * inclusive-language decision recorded for the whole book.
  *
  * Two properties matter more than the implementation, and both are tested:
@@ -22,7 +22,7 @@ export interface Grant {
   caller: string;
   /** Called workload identity. */
   callee: string;
-  /** Operations permitted on the callee. `*` is rejected at construction — see below. */
+  /** Operations permitted on the callee. `*` is rejected at construction; see below. */
   operations: string[];
   /** Why this grant exists. Required, because an unexplained grant is one nobody dares remove. */
   justification: string;
@@ -97,7 +97,7 @@ export class PolicyEngine {
  * ShopFlow's actual allowlist at the Chapter 3 state.
  *
  * Note what is absent. Nothing reaches Payments except Orders, nothing reaches the database
- * directly, and no service has a grant to the admin operations — which is the difference between
+ * directly, and no service has a grant to the admin operations. That is the difference between
  * this and the "open door" the chapter opens with.
  */
 export const SHOPFLOW_GRANTS: Grant[] = [

@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
  * Why `LIKE '%oak%'` cannot use an index, demonstrated by counting comparisons.
  *
  * The chapter states that the leading-wildcard LIKE forces a full table scan. That is a claim
- * about access paths, and it is worth being able to *see* rather than take on faith — so this
+ * about access paths, and it is worth being able to *see* rather than take on faith, so this
  * models both access paths over the same data and counts the rows each one touches.
  *
  * A B-tree is ordered by prefix. `'oak%'` has a prefix to seek on, so the engine descends to
@@ -69,7 +69,7 @@ describe("the legacy search route's access path", () => {
     expect(rowsRead).toBe(100_000); // every single row, to answer one search
   });
 
-  it('CLAIM: scan cost grows linearly with the table — this is the time bomb', () => {
+  it('CLAIM: scan cost grows linearly with the table; this is the time bomb', () => {
     // The route was written when the table was small. Nothing about the code changed; the
     // data grew. That is the entire mechanism behind "worked fine for 100 users".
     const small = scanContains(makeTable(1_000), 'oak');

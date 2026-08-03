@@ -98,7 +98,7 @@ export class CacheAside<T> {
     // Cross-process herd lock. One instance in the fleet reads the origin; the rest wait
     // briefly and then read the value the winner wrote. If we cannot get the lock and the
     // value still is not there, we fall through and read the origin rather than fail the
-    // request — a slow read beats a 503, and the lock TTL bounds how long that can persist.
+    // request, a slow read beats a 503, and the lock TTL bounds how long that can persist.
     const lockKey = herdLockKey(key);
     const won = await this.o.store.setIfAbsent(lockKey, '1', this.o.lockTtlSeconds);
 

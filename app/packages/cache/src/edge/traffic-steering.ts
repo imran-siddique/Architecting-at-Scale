@@ -2,7 +2,7 @@
  * Figure 4.3: Baby-Step Traffic Steering.
  *
  * Chapter 4's Baby-Step Steering Rule: when moving traffic between regions, never flip a 100%
- * switch. Move in steps — 1%, 3%, 10%, 30% — watching telemetry at each one, so you find out the
+ * switch. Move in steps, 1%, 3%, 10%, 30%, watching telemetry at each one, so you find out the
  * secondary region cannot take the load while only 1% of customers are affected rather than all
  * of them.
  *
@@ -53,7 +53,7 @@ export interface ShiftResult {
 /**
  * Walk the ladder, checking health at each rung.
  *
- * `observe(weight)` reports the target region's health at that weight — in production this reads
+ * `observe(weight)` reports the target region's health at that weight, in production this reads
  * the observability signals from Chapter 11; here it is injected so the behaviour is testable.
  *
  * On a breach the shift rolls back to the previous rung rather than to zero. Rolling all the way
@@ -100,7 +100,7 @@ export function shiftTraffic(opts: {
 /**
  * What a single 100% flip would have cost, for comparison.
  *
- * Not a straw man — it is what a DNS change or a load-balancer weight edit does by default, and
+ * Not a straw man; it is what a DNS change or a load-balancer weight edit does by default, and
  * it is what "we failed over to the secondary region" usually means in an incident review.
  */
 export function bigBangShift(opts: {
