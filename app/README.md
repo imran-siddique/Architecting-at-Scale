@@ -16,6 +16,7 @@ of the book: each one is the consequence of the previous chapter's solution.
 | 3: Zero Trust | `packages/security` |
 | 4: edge, CDN and steering | `packages/cache/src/edge` |
 | 5: micro-frontends | `packages/shell` |
+| 6: decomposition | `packages/decomposition` |
 | 9: caching | `packages/cache` |
 
 Shared infrastructure (the schema, the compose file) carries what every chapter needs, so all of
@@ -47,6 +48,7 @@ app/
     platform/         Chapter 2 - session store, correlation ID
     security/         Chapter 3 - workload identity, default-deny policy
     shell/            Chapter 5 - error boundaries, event bus, budgets
+    decomposition/    Chapter 6 - seam signals, Strangler Fig, contracts
     cache/            Chapter 4 (edge/) + Chapter 9 (Redis tier)
   workers/            queue consumers (Chapter 8 onward)
   db/schema.sql       the relational schema, union across chapters
@@ -100,6 +102,18 @@ implementation and watch which argument breaks.
 | `adding a new service grants it nothing implicitly` | What makes Assume Breach tractable |
 | `in the castle, one compromise reaches the ENTIRE fleet` | The perimeter model, measured rather than asserted |
 | `in the hotel, the same compromise reaches only its grants` | ≤ 2 of 6 versus 100%. This is the return on the ~20ms mTLS cost |
+
+**Chapter 6: decomposition**
+
+| Test | The claim it proves |
+|------|---------------------|
+| `a module with two signals is NOT extracted` | Three signals are a mandate; two is neither |
+| `the No-Signal Rule keeps quiet modules in the monolith` | The half that gets skipped, and the only free decision on the list |
+| `the highest-pain module is never last` | The failure the Extraction Sequence Doctrine exists to prevent |
+| `a router cannot be constructed without a completion date` | The Time-Box Mandate as a constructor argument |
+| `the Permanent Proxy check fails on a DATE` | The proxy works, so nobody ever notices. The deadline has to fail the build by itself |
+| `an invariant change is breaking even when the schema is IDENTICAL` | The silent break no schema diff tool reports |
+| `an additive change breaks a STRICT deserializer` | "Additive is safe" holds only for tolerant readers |
 
 **Chapter 5: micro-frontends**
 
