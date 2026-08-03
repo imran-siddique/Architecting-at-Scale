@@ -1,7 +1,9 @@
-# Infrastructure for ShopFlow at its Chapter 1 state: one database. That is the whole stack.
+# Infrastructure for ShopFlow.
 #
-# Redis arrives in Chapter 9, the broker in Chapter 8, the search engine in Chapter 10. Adding
-# them here would skip the argument the book is making.
+# Each chapter adds only what it needs, and the tree carries the union so every chapter's code
+# still runs. MySQL is Chapter 1. Redis arrives in Chapter 9 to absorb the read amplification
+# Chapter 8 created. The broker is RabbitMQ per the Chapter 8 decision - Kafka is the migration
+# target on a measured signal, not a default. Elasticsearch arrives in Chapter 10.
 services:
   mysql:
     image: mysql:8.4
@@ -11,9 +13,31 @@ services:
     ports: ['3306:3306']
     volumes:
       - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
-    # 500 connections: the ceiling Chapter 1's telemetry is measured against.
+    # 500 connections: the ceiling Chapter 1's telemetry is measured against, and the constraint
+    # its saturation tests derive the ~166 req/s tipping point from.
     command: ['--max-connections=500']
     healthcheck:
       test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-pshopflow']
       interval: 5s
+      retries: 12
+
+  # Chapter 9.
+  redis:
+    image: redis:7-alpine
+    ports: ['6379:6379']
+    # No persistence on purpose. Chapter 9's cache is disposable by design: every entry has a
+    # TTL and the relational store remains the only source of truth.
+    command: ['redis-server', '--save', '', '--appendonly', 'no']
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      retries: 12
+
+  # Chapter 8.
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    ports: ['5672:5672', '15672:15672']
+    healthcheck:
+      test: ['CMD', 'rabbitmq-diagnostics', '-q', 'ping']
+      interval: 10s
       retries: 12

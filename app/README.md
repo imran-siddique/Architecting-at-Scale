@@ -2,40 +2,45 @@
 
 The running example from *Architecting at Scale*, as one codebase that evolves across the book.
 
-**Current state: end of Chapter 1 — the monolith.** One process, one database, one deployable.
-Availability 99.0%, 5,000 orders/day, 450 of 500 database connections in use, p99 latency 3.2s.
+## How chapter states are represented
 
-## Why one codebase instead of sixteen folders
+ShopFlow is in a different architectural state in every chapter, and those states are the point
+of the book: each one is the consequence of the previous chapter's solution.
 
-The system is in a different architectural state in every chapter, and those states are the point
-of the book: each is the consequence of the previous chapter's solution. A per-chapter copy loses
-that — you get sixteen snapshots and no evolution. Here the history *is* the argument, and each
-chapter's state is reachable by tag.
+**The tree carries the union; tags mark each chapter's state.**
 
 ```bash
-git tag --list 'ch*'      # the states that exist so far
+git tag --list 'ch*'      # the chapter states that exist so far
 git checkout ch1-monolith
 ```
 
-The trade is that you check out a tag to see an earlier state. That is deliberate; the alternative
-is sixteen codebases that drift apart.
+So `services/monolith` (Chapter 1) and `packages/cache` (Chapter 9) both live here, and the shared
+infrastructure — the schema, the compose file — carries what every chapter needs so all of it
+still runs against one database. Where a column or a service exists because of a specific chapter,
+a comment says which.
+
+A tree that only ever held one state would read more purely, but it means a reader on Chapter 9
+cannot see the Chapter 1 pathology that chapter is arguing against. This way both are present and
+the tags still recover any single state.
 
 ## The code is deliberately not fixed ahead of the book
 
 Chapter 1's search route does a full table scan, holds a connection for three seconds, and writes
-unbounded stack traces to local disk. All of that is intentional and none of it should be repaired
-in place. The commits are the narrative.
+unbounded stack traces to local disk. None of it should be repaired in place. The commits and the
+tests are the narrative — a repository that starts from the fixed version teaches nothing about
+how systems actually arrive at trouble.
 
 ## Layout
 
 ```
 app/
   services/
-    monolith/         Chapter 1 - everything in one process
-  packages/           extracted shared libraries (from Chapter 6 onward)
-  workers/            queue consumers (from Chapter 8 onward)
-  db/schema.sql       the relational schema at this chapter's state
-  docker-compose.yml  the infrastructure this chapter actually needs
+    monolith/         Chapter 1 - everything in one process, with the pathologies
+  packages/
+    cache/            Chapter 9 - cache-aside, herd defence, invalidation
+  workers/            queue consumers (Chapter 8 onward)
+  db/schema.sql       the relational schema, union across chapters
+  docker-compose.yml  MySQL (Ch1), RabbitMQ (Ch8), Redis (Ch9)
 ```
 
 ## Running it
@@ -49,32 +54,51 @@ npm test          # no infrastructure required
 npm run build     # typecheck + emit
 ```
 
-Infrastructure is only needed to serve traffic:
+Infrastructure is only needed for the integration tests and to serve traffic:
 
 ```bash
 npm run infra:up
-npm run monolith
+REDIS_URL=redis://127.0.0.1:6379 npx vitest run   # adds the Redis integration suite
+npm run monolith                                   # Chapter 1's service on :3000
 npm run infra:down
 ```
 
 ## What the tests are for
 
 They are not coverage. Each names a claim the book makes and proves it, so you can change the
-implementation and watch which argument breaks. At this stage:
+implementation and watch which argument breaks.
+
+**Chapter 1 — the monolith**
 
 | Test | The claim it proves |
 |------|---------------------|
-| `500 connections at a ~3s hold saturate at ~166 req/s` | The tipping point is derivable from Little's Law before you reach it, not discoverable only in production |
-| `a 1.9x traffic increase produces a far-larger latency increase` | Figure 1.1's knee is real arithmetic, not a rhetorical curve |
-| `past the tipping point the queue has no steady state` | Above capacity, wait time grows with the observation window. A slow system and a system with no equilibrium are different problems |
-| `a leading-wildcard LIKE reads every row` | The scan is the mechanism: a B-tree is ordered by prefix and `'%oak%'` has none to seek on |
-| `scan cost grows linearly with the table` | Nothing about the code changed; the data grew. This is what "worked fine for 100 users" means |
-| `at 90% utilization the system is still "fine"` | The uncomfortable one. The dashboard looks healthy right at the edge, which is why headroom must be measured rather than watched |
+| `500 connections at a ~3s hold saturate at ~166 req/s` | The tipping point is derivable from Little's Law before you reach it |
+| `with perfectly smooth arrivals at 90% utilization, nobody queues at all` | A D/D/c queue has no knee. This is the control case |
+| `with realistic bursty arrivals at the SAME 90%, requests do queue` | The knee comes from **variability**, not utilization — which is why 90% average utilization is not 10% of headroom |
+| `past the tipping point the queue has no steady state` | Wait time grows with the observation window. A slow system and a system with no equilibrium are different problems |
+| `a leading-wildcard LIKE reads every row` | A B-tree is ordered by prefix, and `'%oak%'` has none to seek on |
+| `scan cost grows linearly with the table` | Nothing about the code changed; the data grew |
+
+**Chapter 9 — caching**
+
+| Test | The claim it proves |
+|------|---------------------|
+| `N concurrent misses produce exactly ONE origin read` | Single-flight bounds the thundering herd. Delete it and this reports 50 database reads at the moment a hot key expires |
+| `a missing row is remembered` | Negative caching stops a hammered absent key becoming a table scan |
+| `a purge carrying an older version is DROPPED` | The version guard is what makes invalidation safe under out-of-order delivery |
+| `duplicate delivery purges exactly once` | The NX dedupe marker makes the consumer idempotent, because every mainstream broker is at-least-once |
+| `a lost event is bounded by the TTL` | Nothing handles the message at all. The TTL is the only backstop — which is why an entry without one is refused |
+| `setIfAbsent is atomic` (integration) | The distributed herd lock rests on this. An `EXISTS`-then-`SET` implementation passes every sequential test and fails this one |
 
 ## Conventions
 
 - **TypeScript, strict, ESM.** `noUncheckedIndexedAccess` and `verbatimModuleSyntax` are on.
+- **Ports, not clients.** The cache is written against `CacheStore` / `PurgeTarget`, so the tiering
+  Chapter 9 requires (Redis, then the CDN, then the origin shield) stays explicit instead of being
+  scattered as vendor calls through the read path.
 - **`npm test` runs with no infrastructure.** If proving the book's claims needed Docker, nobody
-  would run the proof. Suites that need a real service skip themselves unless its URL is set.
-- **Comments explain the *why*, and in this codebase often the why-it-is-wrong.** A file that
-  contains a deliberate pathology says so, and points at the test that measures it.
+  would run the proof. Suites needing a real service skip themselves unless its URL is set.
+- **Simulations are seeded.** A queueing assertion only belongs in a test suite if it returns the
+  same numbers on every machine.
+- **Comments explain the *why*, and sometimes the why-it-is-wrong.** A file carrying a deliberate
+  pathology says so and points at the test that measures it.
