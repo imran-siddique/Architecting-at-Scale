@@ -12,7 +12,7 @@ import { connectionsInUse, sustainableThroughput, utilization } from './saturati
  * Stage 2 (Chapter 2): the biggest instance AWS sells, 4,800 of 5,000 connections, $2,500/mo.
  * Vertical scaling bought headroom and changed nothing structural - which is the finding.
  *
- * Everything is still in here — catalog, search, orders, admin, the dead endpoints — because
+ * Everything is still in here, catalog, search, orders, admin, the dead endpoints, because
  * that is what a monolith is, and the book spends fifteen chapters earning the right to change
  * it. What Chapter 2 adds is the two things that make horizontal scaling *possible* later:
  * externalized session state and a correlation ID minted at the edge.

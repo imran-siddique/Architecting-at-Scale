@@ -68,7 +68,7 @@ export class InvalidationConsumer {
   }
 
   /**
-   * Handle one delivery. Safe to call twice with the same event — that is the entire point.
+   * Handle one delivery. Safe to call twice with the same event, that is the entire point.
    * Never throws: a permanent failure is dead-lettered and acknowledged, because a message
    * that fails forever must not block the queue behind it.
    */
@@ -87,7 +87,7 @@ export class InvalidationConsumer {
       const applied = await this.o.cache.invalidate(event.entityId, event.version);
       if (!applied) return 'stale';
 
-      // Purge the edge tiers in parallel — they are independent, and serialising them makes
+      // Purge the edge tiers in parallel; they are independent, and serialising them makes
       // invalidation lag the sum of three vendor latencies instead of the max.
       const paths = this.o.edgePaths?.(event) ?? [];
       if (paths.length > 0 && this.o.purgeTargets.length > 0) {

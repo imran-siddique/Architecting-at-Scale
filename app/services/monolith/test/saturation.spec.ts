@@ -55,7 +55,7 @@ describe("Little's Law gives the tipping point before you reach it", () => {
  * This is the most useful thing in the file, and it was learned the hard way: the first version
  * of this suite modelled arrivals as perfectly evenly spaced and then asserted a knee. CI
  * failed it, correctly. A D/D/c queue has exactly zero queueing below 100% utilization and
- * unbounded queueing above it — a step function with no curve anywhere.
+ * unbounded queueing above it, a step function with no curve anywhere.
  *
  * Real users do not arrive on a metronome. Once arrivals clump, a clump can exceed the pool
  * while the *average* still looks comfortable, and that is the entire reason 90% average

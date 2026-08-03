@@ -8,7 +8,7 @@ import type { SessionBackend } from './ports.js';
  * one. Stated as mechanics rather than metaphor: every instance is stateless, and all state
  * lives in an external store.
  *
- * The lookup is the whole thing — read the session by ID, reuse it if present, create and write
+ * The lookup is the whole thing, read the session by ID, reuse it if present, create and write
  * it back only if absent. No instance ever holds the authoritative copy, so no instance is
  * special, so any instance can be lost.
  */

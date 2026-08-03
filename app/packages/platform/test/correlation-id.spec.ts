@@ -8,14 +8,14 @@ import {
 } from '../src/correlation/correlation-id.js';
 
 /**
- * "Generate at the edge, trust but verify" — Chapter 2's rule, as three cases.
+ * "Generate at the edge, trust but verify", Chapter 2's rule, as three cases.
  *
  * The third case is the one teams skip: a *malformed* client ID must be replaced, not cleaned
  * up and kept. That is what makes this a security control rather than a convenience.
  */
 
 describe('resolving an inbound correlation ID', () => {
-  it('CLAIM: absent — the edge mints one', () => {
+  it('CLAIM: absent, the edge mints one', () => {
     const r = resolveCorrelationId(undefined);
     expect(r.source).toBe('minted');
     expect(isValidCorrelationId(r.correlationId)).toBe(true);
@@ -25,14 +25,14 @@ describe('resolving an inbound correlation ID', () => {
     expect(resolveCorrelationId('').source).toBe('minted');
   });
 
-  it('CLAIM: valid — preserved, so a client can trace end to end', () => {
+  it('CLAIM: valid, preserved, so a client can trace end to end', () => {
     const supplied = 'b7c1f0e2-3a44-4c9b-9a1d-88f0c2e5a911';
     const r = resolveCorrelationId(supplied);
     expect(r.source).toBe('client');
     expect(r.correlationId).toBe(supplied);
   });
 
-  it('CLAIM: malformed — REGENERATED, never passed through', () => {
+  it('CLAIM: malformed, REGENERATED, never passed through', () => {
     // Each of these is a real hazard rather than a hypothetical.
     const hostile = [
       'a',                                  // too short to be an identifier

@@ -2,7 +2,7 @@ import type { CacheStore, Clock, Metrics, PurgeTarget } from '../src/ports.js';
 
 /**
  * In-memory doubles so the suite runs with no infrastructure. `npm test` must pass on a
- * laptop with nothing installed — if proving the chapter's claims requires Docker, nobody
+ * laptop with nothing installed, if proving the chapter's claims requires Docker, nobody
  * will run the proof.
  */
 

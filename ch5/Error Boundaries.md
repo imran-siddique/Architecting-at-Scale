@@ -2,7 +2,7 @@
 
 React’s Error Boundary API is the foundation of component-level fault isolation. An Error Boundary is a component that catches JavaScript errors in its child component tree, logs the error, and renders a fallback UI instead of crashing the entire application.
 
-The architectural mistake most teams make is placing a single Error Boundary at the application root. This catches everything—and displays a generic “Something went wrong” page that is functionally equivalent to a crash. The user loses all context and cannot complete any task.
+The architectural mistake most teams make is placing a single Error Boundary at the application root. This catches everything, and displays a generic “Something went wrong” page that is functionally equivalent to a crash. The user loses all context and cannot complete any task.
 
 The correct pattern is granular Error Boundaries at the micro-app and widget level:
 
@@ -86,5 +86,5 @@ export function ProductPage() {
 }
 ```
 
-Notice the asymmetry. The critical path component (ProductDetail) has a visible error fallback—because if the product detail itself cannot render, the user needs to know. The enhancement components (Recommendations, Reviews) have a null fallback—they silently disappear. The user never sees an error message for a widget they did not ask for. The page simply has fewer sections, and the core task (viewing the product and adding to cart) is unaffected.
+Notice the asymmetry. The critical path component (ProductDetail) has a visible error fallback, because if the product detail itself cannot render, the user needs to know. The enhancement components (Recommendations, Reviews) have a null fallback, they silently disappear. The user never sees an error message for a widget they did not ask for. The page simply has fewer sections, and the core task (viewing the product and adding to cart) is unaffected.
 

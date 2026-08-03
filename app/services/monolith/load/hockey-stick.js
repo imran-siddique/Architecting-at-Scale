@@ -3,7 +3,7 @@
  *
  * k6 is the load-testing tool the book commits to (Chapter 2). This script walks the arrival
  * rate up through the tipping point rather than hammering a single fixed rate, because the
- * shape of the curve is the finding — a single number tells you the system is slow, and the
+ * shape of the curve is the finding, a single number tells you the system is slow, and the
  * curve tells you where the wall is.
  *
  *   k6 run app/services/monolith/load/hockey-stick.js

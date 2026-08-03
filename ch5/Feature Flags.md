@@ -4,7 +4,7 @@ Feature flags serve two fundamentally different purposes, and conflating them is
 
 ## Purpose 1: Safety (Kill Switch)
 
-A feature flag that allows you to disable a newly deployed component without a full rollback. This is a **Safe Scale** primitive—it reduces blast radius by making any change reversible in seconds.
+A feature flag that allows you to disable a newly deployed component without a full rollback. This is a **Safe Scale** primitive, it reduces blast radius by making any change reversible in seconds.
 
 ## Purpose 2: Experimentation (A/B Testing)
 
@@ -16,11 +16,11 @@ Both purposes are valid. Both use the same underlying mechanism. The critical di
 
 ## Anti-Pattern: The Flag Graveyard
 
-Feature flags accumulate. A team ships a flag for a new widget. The widget launches successfully. The flag stays in the codebase—"just in case." Six months later, the codebase has 200 flags. Nobody knows which are active, which are stale, and which are accidentally controlling critical behavior.
+Feature flags accumulate. A team ships a flag for a new widget. The widget launches successfully. The flag stays in the codebase, "just in case." Six months later, the codebase has 200 flags. Nobody knows which are active, which are stale, and which are accidentally controlling critical behavior.
 
 Worse, the combinatorial explosion of flag states makes testing nearly impossible. With 10 binary flags, you have **1,024 possible application states**. No QA team is testing 1,024 states.
 
-> **The Flag Hygiene Rule:** Every feature flag must have an expiration date set at creation time. Kill-switch flags expire 30 days after full rollout. Experiment flags expire when the experiment concludes and the winning variant is hardcoded. A weekly automated report surfaces all flags past their expiration date. A flag that has been at 100% rollout for more than 30 days is not a feature flag—it is dead code with a runtime cost.
+> **The Flag Hygiene Rule:** Every feature flag must have an expiration date set at creation time. Kill-switch flags expire 30 days after full rollout. Experiment flags expire when the experiment concludes and the winning variant is hardcoded. A weekly automated report surfaces all flags past their expiration date. A flag that has been at 100% rollout for more than 30 days is not a feature flag, it is dead code with a runtime cost.
 
 ```typescript
 // Feature Flag definition with mandatory expiration
@@ -66,7 +66,7 @@ export function getExpiredFlags(): FeatureFlag[] {
 
 ---
 
-## Safe Scale Check — Reversibility and Blast Radius
+## Safe Scale Check: Reversibility and Blast Radius
 
 Feature flags are the most granular reversibility mechanism available in a frontend architecture. A deployment rollback reverts *all* changes. A feature flag toggle reverts *one* change.
 

@@ -65,7 +65,7 @@ describe('the Origin Shield (Figure 4.1)', () => {
     expect(shield.metrics.popHits).toBe(20);
   });
 
-  it('CLAIM: when the origin is DOWN, a stale entry is served — not a 404', async () => {
+  it('CLAIM: when the origin is DOWN, a stale entry is served, not a 404', async () => {
     // Chapter 4's Golden Rule: availability beats freshness. A 60-second-old price beats an
     // error page, and this is that rule as mechanism rather than sentiment.
     const clock = new TestClock();
@@ -178,7 +178,7 @@ describe('Baby-Step Traffic Steering (Figure 4.3)', () => {
     expect(both.steps.at(-1)).toMatchObject({ breached: ['p99Ms', 'errorRate'] });
   });
 
-  it('the first rung is small on purpose — never start above it', () => {
+  it('the first rung is small on purpose, never start above it', () => {
     expect(BABY_STEPS[0]).toBe(1);
     expect(Math.max(...BABY_STEPS)).toBe(100);
     // Monotonic, so no step ever reduces exposure by accident.

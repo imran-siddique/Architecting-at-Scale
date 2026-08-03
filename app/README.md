@@ -11,13 +11,13 @@ of the book: each one is the consequence of the previous chapter's solution.
 
 | Chapter | Where its code lives |
 |---------|----------------------|
-| 1 — the monolith | `services/monolith` |
-| 2 — statelessness, correlation IDs | `packages/platform` |
-| 3 — Zero Trust | `packages/security` |
-| 4 — edge, CDN, steering | `packages/cache/src/edge` |
-| 9 — caching | `packages/cache` |
+| 1: the monolith | `services/monolith` |
+| 2: statelessness and correlation IDs | `packages/platform` |
+| 3: Zero Trust | `packages/security` |
+| 4: edge, CDN and steering | `packages/cache/src/edge` |
+| 9: caching | `packages/cache` |
 
-Shared infrastructure — the schema, the compose file — carries what every chapter needs, so all of
+Shared infrastructure (the schema, the compose file) carries what every chapter needs, so all of
 it still runs against one database. Where a column or a service exists because of a specific
 chapter, a comment says which.
 
@@ -27,13 +27,13 @@ cannot see the Chapter 1 pathology that chapter is arguing against. This way bot
 > **On tags.** There are none yet, deliberately. Chapters were written as the manuscript was
 > finished rather than in order, so the commit history is not in chapter order and a `ch1-monolith`
 > tag would point at a tree that already contained Chapter 9. A tag series is worth adding once all
-> sixteen states are in and can be laid down honestly — until then, the table above is the map.
+> sixteen states are in and can be laid down honestly. Until then, the table above is the map.
 
 ## The code is deliberately not fixed ahead of the book
 
 Chapter 1's search route does a full table scan, holds a connection for three seconds, and writes
 unbounded stack traces to local disk. None of it should be repaired in place. The commits and the
-tests are the narrative — a repository that starts from the fixed version teaches nothing about
+tests are the narrative; a repository that starts from the fixed version teaches nothing about
 how systems actually arrive at trouble.
 
 ## Layout
@@ -76,18 +76,18 @@ npm run infra:down
 They are not coverage. Each names a claim the book makes and proves it, so you can change the
 implementation and watch which argument breaks.
 
-**Chapter 1 — the monolith**
+**Chapter 1: the monolith**
 
 | Test | The claim it proves |
 |------|---------------------|
 | `500 connections at a ~3s hold saturate at ~166 req/s` | The tipping point is derivable from Little's Law before you reach it |
 | `with perfectly smooth arrivals at 90% utilization, nobody queues at all` | A D/D/c queue has no knee. This is the control case |
-| `with realistic bursty arrivals at the SAME 90%, requests do queue` | The knee comes from **variability**, not utilization — which is why 90% average utilization is not 10% of headroom |
+| `with realistic bursty arrivals at the SAME 90%, requests do queue` | The knee comes from **variability**, not utilization, which is why 90% average utilization is not 10% of headroom |
 | `past the tipping point the queue has no steady state` | Wait time grows with the observation window. A slow system and a system with no equilibrium are different problems |
 | `a leading-wildcard LIKE reads every row` | A B-tree is ordered by prefix, and `'%oak%'` has none to seek on |
 | `scan cost grows linearly with the table` | Nothing about the code changed; the data grew |
 
-**Chapter 3 — Zero Trust**
+**Chapter 3: Zero Trust**
 
 | Test | The claim it proves |
 |------|---------------------|
@@ -99,17 +99,17 @@ implementation and watch which argument breaks.
 | `in the castle, one compromise reaches the ENTIRE fleet` | The perimeter model, measured rather than asserted |
 | `in the hotel, the same compromise reaches only its grants` | ≤ 2 of 6 versus 100%. This is the return on the ~20ms mTLS cost |
 
-**Chapter 4 — the edge**
+**Chapter 4: the edge**
 
 | Test | The claim it proves |
 |------|---------------------|
-| `50 PoPs missing simultaneously produce exactly ONE origin fetch` | The origin shield. Two tiers of collapse are needed — per-PoP and at the shield — and neither is sufficient alone |
-| `when the origin is DOWN, a stale entry is served — not a 404` | Availability beats freshness, as mechanism rather than sentiment |
+| `50 PoPs missing simultaneously produce exactly ONE origin fetch` | The origin shield. Two tiers of collapse are needed (per-PoP and at the shield) and neither alone is sufficient |
+| `when the origin is DOWN, a stale entry is served, not a 404` | Availability beats freshness, as mechanism rather than sentiment |
 | `past the stale window it fails rather than lying forever` | Stale-while-revalidate is a *bounded* promise |
 | `a region that buckles is caught at 1%` | Baby-step steering exposes 1% of requests to the failure |
 | `the same failure under a 100% flip exposes EVERY request` | The same failure, two orders of magnitude apart |
 
-**Chapter 9 — caching**
+**Chapter 9: caching**
 
 | Test | The claim it proves |
 |------|---------------------|
@@ -117,7 +117,7 @@ implementation and watch which argument breaks.
 | `a missing row is remembered` | Negative caching stops a hammered absent key becoming a table scan |
 | `a purge carrying an older version is DROPPED` | The version guard is what makes invalidation safe under out-of-order delivery |
 | `duplicate delivery purges exactly once` | The NX dedupe marker makes the consumer idempotent, because every mainstream broker is at-least-once |
-| `a lost event is bounded by the TTL` | Nothing handles the message at all. The TTL is the only backstop — which is why an entry without one is refused |
+| `a lost event is bounded by the TTL` | Nothing handles the message at all. The TTL is the only backstop, which is why an entry without one is refused |
 | `setIfAbsent is atomic` (integration) | The distributed herd lock rests on this. An `EXISTS`-then-`SET` implementation passes every sequential test and fails this one |
 
 ## Conventions

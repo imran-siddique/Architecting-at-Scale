@@ -1,4 +1,4 @@
-# Chapter 4 — Scaling the Global Delivery Layer
+# Chapter 4: Scaling the Global Delivery Layer
 
 **Edge, CDNs and Traffic Steering**
 
@@ -13,15 +13,15 @@ Chapter 3's Zero Trust work stopped the breach spreading. It also made everythin
 
 | Metric | Stage 4 |
 |--------|---------|
-| Availability | 92.0% — intermittent, database straining under security overhead |
-| TCP/TLS handshake latency | **300ms** global average — the cost of mTLS |
-| Cloud spend | $4,500/mo — rising on inefficient origin fetches |
+| Availability | 92.0%, intermittent, database straining under security overhead |
+| TCP/TLS handshake latency | **300ms** global average, the cost of mTLS |
+| Cloud spend | $4,500/mo, rising on inefficient origin fetches |
 | Panic Meter | 7/10 |
 
 > **The Signal:** technically secure, geographically failing. The "Single Straw" database is
 > struggling with the overhead of our own shields.
 
-The CFO's question — *why does "safe" feel so "slow"?* — is the honest one. Chapter 3 bought
+The CFO's question, *why does "safe" feel so "slow"?*, is the honest one. Chapter 3 bought
 segmentation and paid for it in per-hop latency, and Chapter 4 is where that bill comes due.
 
 ## Why the edge code lives in `packages/cache`
@@ -50,7 +50,7 @@ flight and each PoP hammers the origin.
 ### Availability beats freshness (the Golden Rule)
 
 The chapter states it plainly: better a 60-second-old price than a 404. The test kills the origin
-mid-flight and asserts a *different* PoP — one that never held a local copy — still serves the
+mid-flight and asserts a *different* PoP, one that never held a local copy, still serves the
 stale value from the shield.
 
 The companion test matters as much: **past the stale window, it fails rather than lying forever.**
@@ -68,7 +68,7 @@ justifies it explicit:
 | Same failure, 100% flip | **100%** |
 
 Same region, same failure, two orders of magnitude apart. The point of a small first step is not
-that it is cautious — it is that it *bounds the number of people who experience the failure you are
+that it is cautious; it is that it *bounds the number of people who experience the failure you are
 looking for.*
 
 Rollback goes to the last healthy rung rather than to zero, because rolling all the way back
@@ -80,7 +80,7 @@ send traffic.
 `shiftTraffic` is structurally the same thing as Chapter 16's canary release. The safe-change
 primitive appears here for regional failover, again in Chapter 16 for feature rollout, and again
 for architectural experiments. Chapter 16's closing argument is that they were always one
-mechanism — this is the first place it shows up.
+mechanism; this is the first place it shows up.
 
 ## Running it
 
@@ -93,7 +93,7 @@ npm test          # no infrastructure needed
 ## What Chapter 4 does not fix
 
 The origin is still a single straw. The shield reduces how often it is asked, which buys real
-headroom, but every shield miss still lands on one database in one region — and that database still
+headroom, but every shield miss still lands on one database in one region, and that database still
 runs Chapter 1's full table scan. Chapters 9 and 10 address the two halves of that.
 
 ## Where this goes next

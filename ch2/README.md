@@ -1,4 +1,4 @@
-# Chapter 2 — Core Principles of Scalable Architecture
+# Chapter 2: Core Principles of Scalable Architecture
 
 | | |
 |---|---|
@@ -11,7 +11,7 @@ Chapter 1's answer was to scale the database tier up. It worked, and then it ran
 
 | Metric | Stage 1 | Stage 2 |
 |--------|---------|---------|
-| Availability | 99.0% | 99.5% — degrading at peak |
+| Availability | 99.0% | 99.5%, degrading at peak |
 | Cloud spend | $500/mo | **$2,500/mo** (5×) |
 | Active connections | 450 / 500 | **4,800 / 5,000** |
 
@@ -19,17 +19,17 @@ Chapter 1's answer was to scale the database tier up. It worked, and then it ran
 > go up. If we get one more viral post, we go dark."*
 
 Look at the connection ratio: 90% before, 96% now. Ten times the hardware bought headroom and
-changed **nothing structural**. That is the finding — vertical scaling moves the wall without
+changed **nothing structural**. That is the finding, vertical scaling moves the wall without
 removing it, and there is exactly one wall left to hit.
 
 ## The two things that must happen before horizontal scaling is possible
 
 Neither is a performance fix. Both are preconditions.
 
-### 1. Statelessness — and Figure 2.2 is executable
+### 1. Statelessness: and Figure 2.2 is executable
 
 The chapter's Golden Rule: *a horizontally scalable service treats all incoming requests as
-strangers.* Stated as mechanics rather than metaphor — every instance is stateless, and all state
+strangers.* Stated as mechanics rather than metaphor: every instance is stateless, and all state
 lives in an external store.
 
 [`test/statelessness.spec.ts`](../app/packages/platform/test/statelessness.spec.ts) runs both
@@ -39,7 +39,7 @@ instance failure, differing **only** in where session state lives.
 | | Sticky sessions | Shared session store |
 |---|---|---|
 | Kill one instance of four | carts destroyed for everyone pinned to it | **zero** sessions lost |
-| One bot at 10× load | fleet lopsided — Server A pegged, Server B idle | balanced within 1.5× |
+| One bot at 10× load | fleet lopsided, Server A pegged, Server B idle | balanced within 1.5× |
 
 Both of the chapter's objections turn out to be consequences of the routing rule rather than
 matters of taste, which is why they can be asserted instead of argued:
@@ -52,7 +52,7 @@ matters of taste, which is why they can be asserted instead of argued:
 `SessionStore` is the fix, and it is one method: read the session by ID, reuse it if present,
 create and write it back only if absent. No instance holds the authoritative copy, so no instance
 is special, so any instance can be lost. The test proves it by pointing two independently
-constructed stores — two "servers" — at one backend and reading a cart written by the other.
+constructed stores (two "servers") at one backend and reading a cart written by the other.
 
 ### 2. The correlation ID
 
@@ -66,12 +66,11 @@ The rule is *generate at the edge, trust but verify*, and it has three cases:
 |---|---|
 | absent | the edge mints one |
 | valid | preserved, so a client can trace end to end through its own systems |
-| **malformed** | **regenerated** — never passed through, never merely sanitized |
+| **malformed** | **regenerated**, never passed through, never merely sanitized |
 
 The third case is the one that gets skipped, and it is the one that makes this a security control
-rather than a convenience. The test suite fires eight hostile values at it — a 5,000-character
-cardinality bomb, a newline-injected fake log entry, `DROP TABLE orders;--`, a path traversal — and
-asserts every one is replaced rather than cleaned up and kept. An ID taken from an untrusted client
+rather than a convenience. The test suite fires eight hostile values at it: a 5,000-character
+cardinality bomb, a newline-injected fake log entry, `DROP TABLE orders;--`, a path traversal. Every one is asserted to be replaced rather than cleaned up and kept. An ID taken from an untrusted client
 and written into your logs is a log-injection vector and an index blow-up.
 
 `outboundHeaders()` deliberately **throws** on an invalid ID rather than propagating it. A trace
@@ -96,7 +95,7 @@ curl -i -H "x-correlation-id: $(uuidgen)" localhost:3000/health # preserved
 
 The legacy search route still does its full table scan and still holds a connection for three
 seconds. Chapter 2 does not fix it, and neither does this code. The chapter's own note is that
-ShopFlow's first move is *not* to fix the slow search — it is to decouple session and cart from the
+ShopFlow's first move is *not* to fix the slow search; it is to decouple session and cart from the
 web server, because until you can move a user between instances without losing their basket you
 cannot scale horizontally at all, and a faster query on one enormous box is still one box.
 

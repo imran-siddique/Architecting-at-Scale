@@ -6,8 +6,7 @@ import type { SessionBackend } from '../src/session/ports.js';
 /**
  * Chapter 2's case against sticky sessions, and for externalized state.
  *
- * The chapter makes two specific objections — the Availability Trap and the Hot Node problem —
- * and both are consequences of the routing rule rather than matters of taste. So both get
+ * The chapter makes two specific objections, the Availability Trap and the Hot Node problem, * and both are consequences of the routing rule rather than matters of taste. So both get
  * asserted rather than argued.
  */
 
@@ -139,7 +138,7 @@ describe('SessionStore: the read-or-create lookup that replaces instance memory'
     expect([...backend.ttls.values()]).toEqual([900]);
   });
 
-  it('destroy removes it server-side — a discarded cookie is not a terminated session', async () => {
+  it('destroy removes it server-side, a discarded cookie is not a terminated session', async () => {
     const backend = new MemoryBackend();
     const store = new SessionStore(backend);
     await store.readOrCreate('bye');

@@ -5,7 +5,7 @@ import { createPrivateKey, createPublicKey, generateKeyPairSync, sign, verify } 
  *
  * Chapter 3's most contrarian move is getting out of the secret business. The Cart service does
  * not have a password; it has an identity, and it presents a short-lived token that the Inventory
- * service verifies on every call — even though both run inside the same network. That last clause
+ * service verifies on every call, even though both run inside the same network. That last clause
  * is the whole of Verify Explicitly: trust comes from identity and context, never from network
  * location.
  *
@@ -17,14 +17,14 @@ import { createPrivateKey, createPublicKey, generateKeyPairSync, sign, verify } 
  * NOTE ON USING THIS: do not. In production, use your platform's workload identity (IAM roles,
  * managed identities, SPIFFE/SPIRE) and a vetted JWT library. Rolling your own token format is
  * how signature-verification bugs get shipped. This exists so the verification steps are visible
- * and individually testable — every check below is one an attacker gets to skip if you omit it.
+ * and individually testable, every check below is one an attacker gets to skip if you omit it.
  * ------------------------------------------------------------------------------------------
  */
 
 export interface WorkloadClaims {
   /** Who is calling. The workload's identity, not a user's. */
   sub: string;
-  /** Who issued it — the platform identity provider. */
+  /** Who issued it, the platform identity provider. */
   iss: string;
   /** Who it is FOR. A token for the Inventory service must not be accepted by Payments. */
   aud: string;

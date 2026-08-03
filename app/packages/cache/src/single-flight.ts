@@ -3,13 +3,13 @@
  *
  * This is the in-process half of the thundering-herd defence from Chapter 9. When a hot key
  * expires, every concurrent request for it misses at the same moment and they all go to the
- * database together — the origin sees a spike precisely because the cache was working well.
+ * database together, the origin sees a spike precisely because the cache was working well.
  *
  * Single-flight bounds that: the first caller does the work, everyone who arrives while it is
  * in progress waits on the same promise. N concurrent misses become 1 origin read.
  *
  * It is deliberately per-process. It does nothing about a herd spread across a fleet of
- * instances — that needs the distributed lock in `cache-aside.ts`. Both are required, and
+ * instances, that needs the distributed lock in `cache-aside.ts`. Both are required, and
  * neither is sufficient. See `test/single-flight.spec.ts` for the property this guarantees.
  */
 export class SingleFlight<T> {

@@ -41,7 +41,7 @@ describe('Verify Explicitly: the workload identity handshake (Figure 3.3)', () =
     }
   });
 
-  it('CLAIM: a token for a DIFFERENT service is refused — the confused-deputy check', () => {
+  it('CLAIM: a token for a DIFFERENT service is refused, the confused-deputy check', () => {
     // A valid, unexpired, correctly signed token that was issued for Inventory. Payments must
     // refuse it, or any service holding a token can replay it anywhere in the fleet.
     const forInventory = cartToken({ aud: 'inventory' });
@@ -49,7 +49,7 @@ describe('Verify Explicitly: the workload identity handshake (Figure 3.3)', () =
     expect(r).toEqual({ ok: false, reason: 'wrong-audience' });
   });
 
-  it('CLAIM: an expired token is refused — this is what makes theft survivable', () => {
+  it('CLAIM: an expired token is refused; this is what makes theft survivable', () => {
     const token = cartToken({ lifetime: 300 });
     // Inside the window, fine. Past it plus the skew allowance, refused.
     expect(verifier.verifyToken(token, 'inventory', at(T0 + 299_000)).ok).toBe(true);
