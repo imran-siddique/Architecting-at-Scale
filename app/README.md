@@ -18,6 +18,7 @@ of the book: each one is the consequence of the previous chapter's solution.
 | 5: micro-frontends | `packages/shell` |
 | 6: decomposition | `packages/decomposition` |
 | 7: resilience | `packages/resilience` |
+| 8: event-driven | `packages/messaging` |
 | 9: caching | `packages/cache` |
 
 Shared infrastructure (the schema, the compose file) carries what every chapter needs, so all of
@@ -51,6 +52,7 @@ app/
     shell/            Chapter 5 - error boundaries, event bus, budgets
     decomposition/    Chapter 6 - seam signals, Strangler Fig, contracts
     resilience/       Chapter 7 - retries, breakers, bulkheads, shedding
+    messaging/        Chapter 8 - outbox, idempotency, critical path
     cache/            Chapter 4 (edge/) + Chapter 9 (Redis tier)
   workers/            queue consumers (Chapter 8 onward)
   db/schema.sql       the relational schema, union across chapters
@@ -114,6 +116,18 @@ implementation and watch which argument breaks.
 | `adding a new service grants it nothing implicitly` | What makes Assume Breach tractable |
 | `in the castle, one compromise reaches the ENTIRE fleet` | The perimeter model, measured rather than asserted |
 | `in the hotel, the same compromise reaches only its grants` | ≤ 2 of 6 versus 100%. This is the return on the ~20ms mTLS cost |
+
+**Chapter 8: event-driven**
+
+| Test | The claim it proves |
+|------|---------------------|
+| `an attempt-number key produces a DIFFERENT value per retry` | Cause 1 of the double charge: dedup cannot work on a key that changes |
+| `a non-atomic check lets CONCURRENT duplicates both through` | Cause 2, tested with the *correct* key, so fixing the key alone is shown to be insufficient |
+| `when Redis loses the key, the unique constraint still prevents the charge` | Why Redis is a pre-check and the constraint is the guarantee |
+| `releases the claim on a genuine failure` | The worse failure: holding it means the customer is never charged at all |
+| `without the outbox, a crash between write and publish loses the event FOREVER` | The gap. No consumer retry helps, because nothing was published |
+| `the relay can produce a DUPLICATE, which is why consumers need the key` | Where at-least-once comes from, and why Chapter 9 deduplicates |
+| `a synchronous chain multiplies its dependencies availability` | The reliability half of decoupling, not just the latency half |
 
 **Chapter 7: resilience**
 
