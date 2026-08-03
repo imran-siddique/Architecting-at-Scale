@@ -11,6 +11,9 @@
       "path": "packages/security"
     },
     {
+      "path": "packages/shell"
+    },
+    {
       "path": "services/monolith"
     }
   ]
