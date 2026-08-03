@@ -8,6 +8,9 @@
       "path": "packages/platform"
     },
     {
+      "path": "packages/security"
+    },
+    {
       "path": "services/monolith"
     }
   ]
