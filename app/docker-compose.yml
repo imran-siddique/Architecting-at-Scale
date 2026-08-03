@@ -1,0 +1,38 @@
+# Infrastructure for ShopFlow at its Chapter 9 state.
+#
+# Chapter 9 adds Redis in front of a MySQL primary that was buckling under read amplification
+# (5 inventory reads per order, read IOPS at 78% of provisioned). Elasticsearch does not appear
+# until Chapter 10, and the broker is RabbitMQ per the Chapter 8 decision - Kafka is the
+# migration target on a measured signal, not a default.
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: shopflow
+      MYSQL_DATABASE: shopflow
+    ports: ['3306:3306']
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-pshopflow']
+      interval: 5s
+      retries: 12
+
+  redis:
+    image: redis:7-alpine
+    ports: ['6379:6379']
+    # No persistence on purpose. Chapter 9's cache is disposable by design: every entry has a
+    # TTL and the relational store remains the only source of truth.
+    command: ['redis-server', '--save', '', '--appendonly', 'no']
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      retries: 12
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    ports: ['5672:5672', '15672:15672']
+    healthcheck:
+      test: ['CMD', 'rabbitmq-diagnostics', '-q', 'ping']
+      interval: 10s
+      retries: 12

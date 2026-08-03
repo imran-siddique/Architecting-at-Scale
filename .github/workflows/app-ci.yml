@@ -1,0 +1,53 @@
+name: app
+
+on:
+  push:
+    branches: [main, 'app-**']
+    paths: ['app/**', '.github/workflows/app-ci.yml']
+  pull_request:
+    paths: ['app/**', '.github/workflows/app-ci.yml']
+
+defaults:
+  run:
+    working-directory: app
+
+jobs:
+  unit:
+    name: typecheck + unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      # npm install rather than npm ci: no lockfile is committed yet. Run `npm install` once
+      # locally and commit app/package-lock.json to make builds reproducible and re-enable
+      # dependency caching here.
+      - run: npm install
+      - name: Build (typecheck)
+        run: npx tsc --build
+      - name: Unit tests
+        run: npx vitest run
+
+  integration:
+    name: integration tests (real Redis)
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install
+      - name: Integration tests
+        run: npx vitest run
+        env:
+          REDIS_URL: redis://127.0.0.1:6379
