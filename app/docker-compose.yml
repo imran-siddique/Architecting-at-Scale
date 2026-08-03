@@ -1,0 +1,19 @@
+# Infrastructure for ShopFlow at its Chapter 1 state: one database. That is the whole stack.
+#
+# Redis arrives in Chapter 9, the broker in Chapter 8, the search engine in Chapter 10. Adding
+# them here would skip the argument the book is making.
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: shopflow
+      MYSQL_DATABASE: shopflow
+    ports: ['3306:3306']
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    # 500 connections: the ceiling Chapter 1's telemetry is measured against.
+    command: ['--max-connections=500']
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-pshopflow']
+      interval: 5s
+      retries: 12

@@ -1,0 +1,26 @@
+{
+  "name": "@shopflow/app",
+  "private": true,
+  "version": "0.1.0",
+  "description": "ShopFlow - the running example from Architecting at Scale. Current state: end of Chapter 1 (the monolith).",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "services/*",
+    "workers/*"
+  ],
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "tsc --build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "infra:up": "docker compose up -d",
+    "infra:down": "docker compose down -v",
+    "monolith": "npm run -w @shopflow/monolith dev"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
+  }
+}

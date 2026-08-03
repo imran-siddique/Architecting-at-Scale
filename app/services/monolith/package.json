@@ -1,0 +1,19 @@
+{
+  "name": "@shopflow/monolith",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Chapter 1: ShopFlow as a single deployable, with the pathologies the chapter diagnoses.",
+  "main": "./dist/server.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "node --experimental-strip-types src/server.ts"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mysql2": "^3.11.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21"
+  }
+}
