@@ -1,0 +1,35 @@
+export {
+  DuplicateOperationError,
+  SHOPFLOW_DUPLICATE_BUDGETS,
+  brokenAttemptBasedKey,
+  capturePaymentOnce,
+  paymentIdempotencyKey,
+  requiresExactlyOnceMachinery,
+  type AuthoritativeLedger,
+  type CaptureResult,
+  type DedupStore,
+  type DuplicateBudget,
+  type PaymentOperation,
+} from './idempotency.js';
+export {
+  TransactionalStore,
+  maxPollIntervalMs,
+  relayOnce,
+  validatePollInterval,
+  type Broker,
+  type OutboxEvent,
+  type RelayResult,
+} from './outbox.js';
+export {
+  CHECKOUT_STEPS,
+  KAFKA_THROUGHPUT_THRESHOLD,
+  analyzePath,
+  classify,
+  findBrokerCoupling,
+  recommendBroker,
+  type Blocking,
+  type BrokerRecommendation,
+  type PathAnalysis,
+  type Step,
+  type WorkloadProfile,
+} from './critical-path.js';

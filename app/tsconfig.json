@@ -8,6 +8,9 @@
       "path": "packages/decomposition"
     },
     {
+      "path": "packages/messaging"
+    },
+    {
       "path": "packages/platform"
     },
     {
