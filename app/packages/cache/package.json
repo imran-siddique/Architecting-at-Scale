@@ -3,9 +3,13 @@
   "version": "0.9.0",
   "private": true,
   "type": "module",
-  "description": "Chapter 9: cache-aside, thundering-herd defence, and version-guarded invalidation.",
+  "description": "Chapters 4 and 9: the edge tier (origin shield, stale-while-revalidate, traffic steering) and the Redis tier (cache-aside, herd defence, invalidation).",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "exports": { ".": "./dist/index.js" },
-  "scripts": { "build": "tsc -p tsconfig.json" }
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  }
 }
