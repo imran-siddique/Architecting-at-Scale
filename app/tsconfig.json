@@ -11,6 +11,9 @@
       "path": "packages/platform"
     },
     {
+      "path": "packages/resilience"
+    },
+    {
       "path": "packages/security"
     },
     {
