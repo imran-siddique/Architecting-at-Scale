@@ -24,6 +24,7 @@ of the book: each one is the consequence of the previous chapter's solution.
 | 11: observability | `packages/observability` |
 | 12: resilience and degradation | `packages/degradation/` |
 | 13: performance and capacity | `packages/capacity/` |
+| 14: FinOps and token governance | `packages/finops/` |
 
 Shared infrastructure (the schema, the compose file) carries what every chapter needs, so all of
 it still runs against one database. Where a column or a service exists because of a specific
@@ -60,8 +61,9 @@ app/
     data/             Chapter 10 - shard buckets, read routing, indexes, RPO
     cache/            Chapter 4 (edge/) + Chapter 9 (Redis tier)
     observability/    Chapter 11 - journey success, tracing, alert hygiene
-  packages/degradation/    # Ch12: classification, the correctness floor, chaos progression
-  packages/capacity/       # Ch13: the Hardware-First Rule, contention, headroom, good enough
+    degradation/      Chapter 12 - classification, correctness floor, chaos rungs
+    capacity/         Chapter 13 - Hardware-First Rule, contention, headroom
+    finops/           Chapter 14 - unit economics, review cadence, token governance
   workers/            queue consumers (Chapter 8 onward)
   db/schema.sql       the relational schema, union across chapters
   docker-compose.yml  MySQL (Ch1), RabbitMQ (Ch8), Redis (Ch9)
@@ -123,6 +125,29 @@ implementation and watch which argument breaks.
 | `the SMALLER percentage is the one worth doing` | Checkout at 67% is worth doing; the analytics batch at 33% is not. Percentage is a benchmark metric. |
 | `the opportunity cost refuses to invent the other side of the comparison` | The value of the feature those weeks would buy is the product team's number, not the architect's. |
 | `the chapter's loaded rate reconciles across all three Manager's Math blocks` | $5,000/week in all three, which usually does not hold across a chapter. |
+
+**Chapter 14: FinOps and token governance**
+
+| Test | The claim it proves |
+|------|---------------------|
+| `cost per ATTEMPTED unit is the one metric that improves as the product gets worse` | Twice the abandoned carts, same orders: per-attempt cost falls, per-success cost correctly does not move. |
+| `a denominator that counts failures rewards a system for failing cheaply` | Give up faster: half the spend, half the orders. Per-attempt improves, per-success gets worse. |
+| `no round-number ceiling was set to catch it, so the alarm stayed quiet` | $8,635 to $9,535 fires no ceiling from $5,000 to $15,000. Only the slope is visible. |
+| `total spend rising with flat unit cost is a larger business, not a problem` | The rule's other half, and the one that stops a cost review becoming a growth tax. |
+| `tagging does not cut the bill. It exposes the waste hiding inside the untagged spend` | $2,193 reclassified, $620 recovered. Conflating them overstates the return by 3.5x. |
+| `a resource with no interval is the default state, and it is the one the rule targets` | Backup, retention, replication, egress and idle endpoints are set with a default and forgotten. |
+| `the two guards are what make the backup audit zero-risk` | Without rebuildable-from-source and no-dependency-on-the-window, this is a procedure for deleting backups. |
+| `the recovery objective for the order database does not change` | The audit refuses the one tier whose data is not rebuildable from source. |
+| `at three years the labor arithmetic clearly favours self-hosting` | 7.25 weeks against 12.6. The build cost does not recur; the premium does. |
+| `the labor crossover is a little over a year, not never` | "The premium is cheaper than the labor" holds for about 14 months and then stops. |
+| `the recommendation survives, but on the RISK argument rather than the cost one` | The premium buys the removal of a class of incident from the P0 path. The same numbers without that recommend self-hosting. |
+| `one bypass makes the budget unenforceable` | A single raw model call leaks the entire budget through that gap. |
+| `the step cap is what stops the reasoning loops, and the cascade alone would not` | Without the cap the same request runs until the budget catches it, at six times the cost. |
+| `the budget bounds the worst case, which produced the $500/hour story` | One looping conversation: $30 ungoverned, capped at $0.50. Over 50x. |
+| `cost per resolved ticket falls by about 60% with no drop in resolution` | 98 of 100 resolved in both runs, so the quality claim is asserted rather than assumed. |
+| `a cheap model called fifty times costs more than an expensive model called once` | The per-call price is what vendors quote; the per-outcome cost is what lands on the bill. |
+| `all five signals, because optimizing the first four moves cost onto the customer` | A cascade validated without resolution-rate is a cascade that got cheaper by answering worse. |
+| `a vendor change invalidates the thresholds immediately, not at the next quarter` | Repricing or deprecating a tier is not something a quarterly cadence can absorb. |
 
 **Chapter 12: resilience and degradation**
 

@@ -1,0 +1,15 @@
+{
+  "name": "@shopflow/finops",
+  "version": "0.14.0",
+  "private": true,
+  "type": "module",
+  "description": "Chapter 14: unit economics, the provisioned-once review cadence, managed versus self-hosted over a horizon, and token governance.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  }
+}
