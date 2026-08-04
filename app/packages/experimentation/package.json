@@ -1,0 +1,15 @@
+{
+  "name": "@shopflow/experimentation",
+  "version": "0.16.0",
+  "private": true,
+  "type": "module",
+  "description": "Chapter 16: the experimentation progression, flag lifecycle and the graveyard, delivery fitness, the predictable unit, and future-proof boundaries.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  }
+}
