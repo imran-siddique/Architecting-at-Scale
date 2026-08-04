@@ -2,6 +2,9 @@
   "files": [],
   "references": [
     {
+      "path": "packages/ai-governance"
+    },
+    {
       "path": "packages/cache"
     },
     {

@@ -25,6 +25,7 @@ of the book: each one is the consequence of the previous chapter's solution.
 | 12: resilience and degradation | `packages/degradation/` |
 | 13: performance and capacity | `packages/capacity/` |
 | 14: FinOps and token governance | `packages/finops/` |
+| 15: AI-first architecture | `packages/ai-governance/` |
 
 Shared infrastructure (the schema, the compose file) carries what every chapter needs, so all of
 it still runs against one database. Where a column or a service exists because of a specific
@@ -64,6 +65,7 @@ app/
     degradation/      Chapter 12 - classification, correctness floor, chaos rungs
     capacity/         Chapter 13 - Hardware-First Rule, contention, headroom
     finops/           Chapter 14 - unit economics, review cadence, token governance
+    ai-governance/    Chapter 15 - intelligence gates, autonomy ladder, kill switch
   workers/            queue consumers (Chapter 8 onward)
   db/schema.sql       the relational schema, union across chapters
   docker-compose.yml  MySQL (Ch1), RabbitMQ (Ch8), Redis (Ch9)
@@ -103,6 +105,32 @@ npm run infra:down
 
 They are not coverage. Each names a claim the book makes and proves it, so you can change the
 implementation and watch which argument breaks.
+
+**Chapter 15: AI-first architecture**
+
+| Test | The claim it proves |
+|------|---------------------|
+| `bounded inputs with enumerable outputs stop at gate 1` | A model adds nothing to a problem whose answers you can already enumerate. |
+| `a team that starts at gate 4 governs a model whose presence was never justified` | Correct governance on the wrong architecture is worse than none, because it makes the feature look reviewed. |
+| `on a bounded-input, known-output problem the model loses on ALL THREE axes at once` | Cost, speed and correctness all favour the rule. Not a trade-off. |
+| `the rule takes the out-of-format rate to zero, not merely lower` | A model can return an answer outside the set you defined; a rule over an enumerable set cannot. |
+| `boundary drift is a model handling a step with exactly one correct answer` | Authentication, authorization, validation, routing and action execution are always code. |
+| `an agent climbs on production traffic, never on a demo and never on a date` | Both hold the agent at its rung, whatever the criterion says. |
+| `the ladder is bidirectional and demotion is routine` | Drift, a changed input distribution or a failed replay test each demote a rung. |
+| `drift is checked BEFORE promotion, so a met criterion does not outrank it` | The criterion was met before the change, so promoting on it promotes on stale evidence. |
+| `skipping shadow mode skips the only rung that tests against reality` | It is where the agent meets hostile, malformed, ambiguous input before reality can be affected. |
+| `rung 5 does NOT mean full autonomy` | High-impact, hard-to-reverse actions remain permanently on rung three. |
+| `the line is reversibility and blast radius, not convenience` | The reroute is reversible and still high-impact, because it moves 4,000 shipments. |
+| `a control defeated by a cleverly worded input was never a control` | The prompt-only guard lets 4,000 shipments through on an injection. |
+| `the runtime gate does not read the rationale, so no wording changes the outcome` | Four different rationales including the injection, one decision. |
+| `the prompt-only guard happens to work when nobody is attacking it` | Which is exactly why it survives review. It passes every benign test. |
+| `individually permitted tools do not make their composition permitted` | An undeclared tool chain is a path nobody reviewed. |
+| `halting one agent must not halt the service or the other agents` | The Unkillable Agent's only off switch is taking down the service it runs inside. |
+| `it is unbypassable. A halted agent cannot execute whatever it decides` | The gate is outside the agent, so compliance is not the agent's choice. |
+| `the reroute incident was a POLICY defect, not a governance one` | The agent acted inside its permissions. The gate worked and the policy was wrong. |
+| `re-enabling without shadow revalidation schedules the next incident` | 3 of 14 days is refused, and the agent returns at rung 3 having held rung 4. |
+| `the capacity was cheap insurance and the governance gap was the real risk` | 120,000 calls/day absorbed for $300/month; 120,000 ungoverned calls is an exposure no budget covers. |
+| `you provision for a step change, not a trend` | A 20%-growth forecast sizes for 14,400/day against a plausible 120,000. |
 
 **Chapter 13: performance and capacity**
 
