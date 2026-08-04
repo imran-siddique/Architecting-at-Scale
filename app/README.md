@@ -22,6 +22,7 @@ of the book: each one is the consequence of the previous chapter's solution.
 | 10: data and databases | `packages/data` |
 | 9: caching | `packages/cache` |
 | 11: observability | `packages/observability` |
+| 12: resilience and degradation | `packages/degradation/` |
 
 Shared infrastructure (the schema, the compose file) carries what every chapter needs, so all of
 it still runs against one database. Where a column or a service exists because of a specific
@@ -58,6 +59,7 @@ app/
     data/             Chapter 10 - shard buckets, read routing, indexes, RPO
     cache/            Chapter 4 (edge/) + Chapter 9 (Redis tier)
     observability/    Chapter 11 - journey success, tracing, alert hygiene
+  packages/degradation/    # Ch12: classification, the correctness floor, chaos progression
   workers/            queue consumers (Chapter 8 onward)
   db/schema.sql       the relational schema, union across chapters
   docker-compose.yml  MySQL (Ch1), RabbitMQ (Ch8), Redis (Ch9)
@@ -97,6 +99,25 @@ npm run infra:down
 
 They are not coverage. Each names a claim the book makes and proves it, so you can change the
 implementation and watch which argument breaks.
+
+**Chapter 12: resilience and degradation**
+
+| Test | The claim it proves |
+|------|---------------------|
+| `a P0 with no documented degraded path is refused, not graded` | A priority without a plan is a label. Grading throws rather than recording it. |
+| `every P0 must name its P0P0` | Checkout's P0 is completing the order; its P0P0 is capturing the payment intent. |
+| `a fast wrong answer is not a degraded mode, it is a defect with better latency` | `payment-integrity` carries the same $42,000/hour as checkout and still cannot be graded. |
+| `the impact number does not promote a floor capability to P0` | $999,999/hour and $1/hour both return `ungraded`. Impact is not what disqualifies it. |
+| `the six mechanisms compose into a completed order under pricing failure` | Breaker, flag, cached pricing, payment intent, queue, acknowledgement, in that order. |
+| `what matters is what did NOT happen` | Across every failure combination: nobody charged without an order, no invented price, no skipped audit. |
+| `with no cached price it REFUSES rather than inventing one` | An invented price is worse than a lost sale. |
+| `the P0P0 is the payment intent, and a lost queue releases it` | If the order cannot be recorded, the captured intent must not survive. |
+| `priority ordering alone lets one consumer take the whole class` | Four P1 partners, identical request counts, one taking 90% of the budget. |
+| `the Fair Share Rule weights by COST, not request count` | The greedy partner is inside any count-based quota and still consumes the class. |
+| `you may not run at N+1 until every rung up to N has a clean record` | Six clean staging runs are the price of admission to the first production experiment. |
+| `a run with customer impact resets the progression at that rung` | An experiment that causes an incident teaches the organization that chaos engineering causes incidents. |
+| `every rung declares an abort condition and a hypothesis` | Without an abort condition it is not an experiment, it is an outage you scheduled. |
+| `break-even is about a month, not "less than 2 days"` | 3 engineering days of build cost against $2,400/month. The claim fails at every loaded rate from $400 to $1,600/day. |
 
 **Chapter 11: observability**
 

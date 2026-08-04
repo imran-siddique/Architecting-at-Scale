@@ -11,6 +11,9 @@
       "path": "packages/decomposition"
     },
     {
+      "path": "packages/degradation"
+    },
+    {
       "path": "packages/messaging"
     },
     {
