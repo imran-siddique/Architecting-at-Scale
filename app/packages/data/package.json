@@ -1,0 +1,15 @@
+{
+  "name": "@shopflow/data",
+  "version": "0.10.0",
+  "private": true,
+  "type": "module",
+  "description": "Chapter 10: logical shard buckets, read-your-writes routing, index write amplification, and precise RPO.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  }
+}
