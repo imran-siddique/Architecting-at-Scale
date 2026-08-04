@@ -1,0 +1,15 @@
+{
+  "name": "@shopflow/degradation",
+  "version": "0.12.0",
+  "private": true,
+  "type": "module",
+  "description": "Chapter 12: P0/P1/P2 classification, the correctness floor, the degraded checkout composed, fairness within a class, and the chaos progression.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  }
+}
