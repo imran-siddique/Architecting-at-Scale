@@ -21,6 +21,7 @@ of the book: each one is the consequence of the previous chapter's solution.
 | 8: event-driven | `packages/messaging` |
 | 10: data and databases | `packages/data` |
 | 9: caching | `packages/cache` |
+| 11: observability | `packages/observability` |
 
 Shared infrastructure (the schema, the compose file) carries what every chapter needs, so all of
 it still runs against one database. Where a column or a service exists because of a specific
@@ -56,6 +57,7 @@ app/
     messaging/        Chapter 8 - outbox, idempotency, critical path
     data/             Chapter 10 - shard buckets, read routing, indexes, RPO
     cache/            Chapter 4 (edge/) + Chapter 9 (Redis tier)
+    observability/    Chapter 11 - journey success, tracing, alert hygiene
   workers/            queue consumers (Chapter 8 onward)
   db/schema.sql       the relational schema, union across chapters
   docker-compose.yml  MySQL (Ch1), RabbitMQ (Ch8), Redis (Ch9)
@@ -95,6 +97,18 @@ npm run infra:down
 
 They are not coverage. Each names a claim the book makes and proves it, so you can change the
 implementation and watch which argument breaks.
+
+**Chapter 11: observability**
+
+| Test | The claim it proves |
+|------|---------------------|
+| `infrastructure availability reads 100% while journeys are failing` | The gap is a property of what you measure, computed from the same request data |
+| `these failures are invisible to infrastructure monitoring BY CONSTRUCTION` | Not oversight. A 200 that achieved nothing |
+| `header-only propagation survives every SYNC hop and dies at the async one` | Where the 0.3% hid. Brokers strip headers |
+| `a trace that stops is indistinguishable from a request that finished` | Why nothing alerted for so long |
+| `the naive version passes any test that only exercises synchronous calls` | Which is exactly how it shipped |
+| `which means 53 FULL-TIME ENGINEERS` | The unit conversion the manuscript's ROI was missing, off by an order of magnitude |
+| `any intervention resets the count` | An automation that needed help has not run unattended |
 
 **Chapter 1: the monolith**
 
