@@ -26,6 +26,7 @@ of the book: each one is the consequence of the previous chapter's solution.
 | 13: performance and capacity | `packages/capacity/` |
 | 14: FinOps and token governance | `packages/finops/` |
 | 15: AI-first architecture | `packages/ai-governance/` |
+| 16: continuous experimentation | `packages/experimentation/` |
 
 Shared infrastructure (the schema, the compose file) carries what every chapter needs, so all of
 it still runs against one database. Where a column or a service exists because of a specific
@@ -66,6 +67,7 @@ app/
     capacity/         Chapter 13 - Hardware-First Rule, contention, headroom
     finops/           Chapter 14 - unit economics, review cadence, token governance
     ai-governance/    Chapter 15 - intelligence gates, autonomy ladder, kill switch
+    experimentation/  Chapter 16 - maturity stages, flag lifecycle, delivery fitness
   workers/            queue consumers (Chapter 8 onward)
   db/schema.sql       the relational schema, union across chapters
   docker-compose.yml  MySQL (Ch1), RabbitMQ (Ch8), Redis (Ch9)
@@ -131,6 +133,30 @@ implementation and watch which argument breaks.
 | `re-enabling without shadow revalidation schedules the next incident` | 3 of 14 days is refused, and the agent returns at rung 3 having held rung 4. |
 | `the capacity was cheap insurance and the governance gap was the real risk` | 120,000 calls/day absorbed for $300/month; 120,000 ungoverned calls is an exposure no budget covers. |
 | `you provision for a step change, not a trend` | A 20%-growth forecast sizes for 14,400/day against a plausible 120,000. |
+**Chapter 16: continuous experimentation**
+
+| Test | The claim it proves |
+|------|---------------------|
+| `flags without a canary buy the ability to hide unfinished work and none of the ability to measure` | ShopFlow's exact position, and the row that explains the graveyard. |
+| `stage 2 stalls because the forcing functions live downstream of it` | The canary ends the experiment and rollback makes acting cheap. Stopping at flags removes both. |
+| `skipping a stage produces the appearance of the capability without the mechanism` | Architectural experiments without canaries or rollback is a name for something that is not happening. |
+| `a flag with no expiry was never an experiment` | It was a permanent fork introduced by accident. |
+| `an unowned flag is an unremovable flag` | Deleting it requires knowing why it exists and nobody is accountable for remembering. |
+| `ownership attaches to the service, so it transfers when the service does` | The field records a service; there is no way to record an individual. |
+| `the 2^n bound is not the number anyone pays` | 2^182 is about 6e54. The per-path figure is what inflates a one-line fix. |
+| `the cost is the reasoning burden per path, and it is still enormous` | ~61 flags on the busiest path is over 10^18 combinations. |
+| `a dozen time-boxed flags is a practice, not a graveyard` | The busiest path drops to 32 combinations. |
+| `the cleanup is a sprint because most of it is deletion, not adjudication` | 150 mechanical, 20 needing a person. The decision was made when the expiry passed. |
+| `green health metrics with bad delivery is not healthy, it is stagnant` | Four verdicts rather than two, so stagnant is distinguishable from unhealthy. |
+| `deployment frequency is an OUTCOME, so it is the wrong thing to attack first` | A team at 22% failure and three weeks of lead time cannot deploy weekly by deciding to. |
+| `the gap is in learning cycles, which is why shipping harder later does not close it` | 12 cycles a year against 52. A feature gap closes by shipping more; a learning gap does not. |
+| `a predictable unit carries NO variance buffer, and that is the whole argument` | Dependable capacity equals mean capacity only when the standard deviation is zero. |
+| `the tuned unit must be provisioned against its bad case, not its mean` | 1,400 rps with 320 of deviation is 872 you can count on. The faster unit needs more of them. |
+| `variance is the dominant cost, roughly 7x the price-per-capacity difference` | $2,480/month against $360. The chapter's Manager's Math states this without numbers; these are the numbers. |
+| `without a pre-stated condition the decision goes to whoever invested most effort` | Which is the opposite of deciding on evidence, so the outcome is undecidable rather than adjudicated. |
+| `an experiment that validates the existing design is a SUCCESSFUL experiment` | It cost a canary instead of a migration. Recording it as a failure teaches the team not to run the cheap check. |
+| `the machinery is what makes a bet reversible, not the change` | The same change is fast or careful depending on whether the team reached stage four. |
+| `a control that assumes a careful operator is a convention, not a gate` | Chapter 15's runtime-versus-prompt distinction arriving one layer up. |
 
 **Chapter 13: performance and capacity**
 
