@@ -23,6 +23,7 @@ of the book: each one is the consequence of the previous chapter's solution.
 | 9: caching | `packages/cache` |
 | 11: observability | `packages/observability` |
 | 12: resilience and degradation | `packages/degradation/` |
+| 13: performance and capacity | `packages/capacity/` |
 
 Shared infrastructure (the schema, the compose file) carries what every chapter needs, so all of
 it still runs against one database. Where a column or a service exists because of a specific
@@ -60,6 +61,7 @@ app/
     cache/            Chapter 4 (edge/) + Chapter 9 (Redis tier)
     observability/    Chapter 11 - journey success, tracing, alert hygiene
   packages/degradation/    # Ch12: classification, the correctness floor, chaos progression
+  packages/capacity/       # Ch13: the Hardware-First Rule, contention, headroom, good enough
   workers/            queue consumers (Chapter 8 onward)
   db/schema.sql       the relational schema, union across chapters
   docker-compose.yml  MySQL (Ch1), RabbitMQ (Ch8), Redis (Ch9)
@@ -99,6 +101,28 @@ npm run infra:down
 
 They are not coverage. Each names a claim the book makes and proves it, so you can change the
 implementation and watch which argument breaks.
+
+**Chapter 13: performance and capacity**
+
+| Test | The claim it proves |
+|------|---------------------|
+| `three of the five exits do not involve writing optimization code` | The default outcome of an honest performance review is usually to provision or accept. |
+| `question 1 ends it. Meeting the SLO is not a performance problem` | It is a performance preference, competing with the feature backlog for the same weeks. |
+| `an algorithm-bound bottleneck skips the economics entirely` | Hardware will not resolve a lock or a query plan at any price, so there is nothing to compare. |
+| `the Resource-Bound Precondition is empirical, not a category judgement` | 1.41x throughput on 2x hardware is the signature of an O(n²) routine, not a CPU shortage. |
+| `$20,000 / $800 is 25 months, which is MORE than two years` | The manuscript divides correctly and then calls the result "less than 2 years". |
+| `month 25 is when the recurring option STOPS being cheaper, not a payback date` | Option A is recurring and Option B is one-time, so the direction of the claim is inverted. |
+| `the recommendation is still right, because the rule is a TWELVE-month test` | $9,600 against $20,000. The rule is framed at 12 months so a 25-month crossover never needs interpreting. |
+| `halving the P2 job (Option B) does NOT satisfy the Physical Separation Rule` | 85% to 43% leaves a P0 and a P2 on the same physical compute. The two options do not address the same problem. |
+| `resource limits on a shared pool are not physical separation` | A P2 inside its limit still takes IOPS, cache lines and scheduler time from the P0 beside it. |
+| `step 2 decides everything. Risen P0 traffic makes it capacity, not contention` | The step teams skip. Separation does not help a workload that needs more resource. |
+| `co-location must be confirmed before optimizing anything` | Optimizing a workload that was never the neighbour is engineering time on the wrong thing. |
+| `above 150% is paying for capacity nobody uses, and it is quantifiable` | 200 units against a 100-unit peak is $2,000/month of idle capacity, not a label. |
+| `a consistent gap in EITHER direction invalidates the model` | Over-prediction buys idle capacity on a false premise just as under-prediction misses growth. |
+| `documented and scripted is not enough. It must have been RUN` | A scaling procedure that has never been executed is one that will fail at the worst moment. |
+| `the SMALLER percentage is the one worth doing` | Checkout at 67% is worth doing; the analytics batch at 33% is not. Percentage is a benchmark metric. |
+| `the opportunity cost refuses to invent the other side of the comparison` | The value of the feature those weeks would buy is the product team's number, not the architect's. |
+| `the chapter's loaded rate reconciles across all three Manager's Math blocks` | $5,000/week in all three, which usually does not hold across a chapter. |
 
 **Chapter 12: resilience and degradation**
 
