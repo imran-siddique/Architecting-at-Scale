@@ -19,6 +19,7 @@ of the book: each one is the consequence of the previous chapter's solution.
 | 6: decomposition | `packages/decomposition` |
 | 7: resilience | `packages/resilience` |
 | 8: event-driven | `packages/messaging` |
+| 10: data and databases | `packages/data` |
 | 9: caching | `packages/cache` |
 
 Shared infrastructure (the schema, the compose file) carries what every chapter needs, so all of
@@ -53,6 +54,7 @@ app/
     decomposition/    Chapter 6 - seam signals, Strangler Fig, contracts
     resilience/       Chapter 7 - retries, breakers, bulkheads, shedding
     messaging/        Chapter 8 - outbox, idempotency, critical path
+    data/             Chapter 10 - shard buckets, read routing, indexes, RPO
     cache/            Chapter 4 (edge/) + Chapter 9 (Redis tier)
   workers/            queue consumers (Chapter 8 onward)
   db/schema.sql       the relational schema, union across chapters
@@ -116,6 +118,18 @@ implementation and watch which argument breaks.
 | `adding a new service grants it nothing implicitly` | What makes Assume Breach tractable |
 | `in the castle, one compromise reaches the ENTIRE fleet` | The perimeter model, measured rather than asserted |
 | `in the hotel, the same compromise reaches only its grants` | ≤ 2 of 6 versus 100%. This is the return on the ~20ms mTLS cost |
+
+**Chapter 10: data and databases**
+
+| Test | The claim it proves |
+|------|---------------------|
+| `hash % shardCount remaps nearly EVERY row when a node is added` | 80.2% of rows move. The design defect the reviewer caught |
+| `adding a node moves only the buckets handed to it` | 20.5% against a 20% theoretical floor |
+| `a naive rebalance moves 2.5x more than it needs to` | 51%. My own first attempt, kept as a warning |
+| `order history is IMPORTANT and still belongs on the replica` | The axis is read-your-writes, not importance |
+| `three of the eleven are STRUCTURAL and never audit candidates` | Dropping `uq_orders_idempotency` reintroduces the Ch8 double charge |
+| `the same topology still LOSES committed writes on a correlated failure` | "Zero RPO" is only true for a single-node failure |
+| `real-time stock must NOT be served from the search index` | Same conclusion Chapter 9 reached about caching it |
 
 **Chapter 8: event-driven**
 

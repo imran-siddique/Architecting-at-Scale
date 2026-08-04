@@ -5,6 +5,9 @@
       "path": "packages/cache"
     },
     {
+      "path": "packages/data"
+    },
+    {
       "path": "packages/decomposition"
     },
     {

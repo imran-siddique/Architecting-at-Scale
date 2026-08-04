@@ -1,0 +1,45 @@
+export {
+  LOGICAL_BUCKETS,
+  ShardRegistry,
+  addNode,
+  bucketFor,
+  brokenShardFor,
+  evenRanges,
+  hashKey,
+  rowsMovedByRebalance,
+  rowsMovedByRehash,
+  shouldShard,
+  type BucketRange,
+  type ScalingPosture,
+} from './sharding.js';
+export {
+  DAL_RESPONSIBILITIES,
+  SHOPFLOW_READS,
+  assertNoBusinessLogicInDal,
+  routeRead,
+  type DalResponsibility,
+  type ReadIntent,
+  type ReplicaProfile,
+  type Route,
+  type RoutingDecision,
+} from './routing.js';
+export {
+  ORDERS_INDEXES,
+  analyzeAmplification,
+  assertAuditIsSafe,
+  isStructural,
+  type AmplificationReport,
+  type IndexKind,
+  type IndexSpec,
+} from './indexes.js';
+export {
+  CDC_FRESHNESS_CEILING_MS,
+  assessRpo,
+  canServeFromSearchIndex,
+  rpoStatement,
+  type FailureScenario,
+  type ReplicationMode,
+  type ReplicationTopology,
+  type RpoAssessment,
+  type SearchIntent,
+} from './replication.js';
