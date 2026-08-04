@@ -1,6 +1,7 @@
-# Architecting at Scale: ShopFlow
+# Architecting at Scale
 
-Companion prompts, code samples and extended notes for **Architecting at Scale**.
+The companion repository for the book **Architecting at Scale** (Packt): the per-chapter code,
+extended notes, and all 73 Architect's Prompts that go with the book.
 
 ShopFlow is the running example throughout the book: an online store for home and lifestyle goods
 that begins as a monolith serving 100 orders a day and ends as a globally distributed, observable,
