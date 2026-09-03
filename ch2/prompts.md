@@ -14,9 +14,9 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 | Prompt | Use it when |
 |--------|-------------|
-| [2.1 The Dependency Audit](#prompt-2-1-the-dependency-audit) | Run this analysis during your Migration Planning phase, before a single line of code is… |
-| [2.2 The State Hunter](#prompt-2-2-the-state-hunter) | When auditing a service you intend to scale horizontally, to find every place it secretly… |
-| [2.3 The Telemetry Weaver](#prompt-2-3-the-telemetry-weaver) | Adopt this pattern immediately. If you wait until teams scale independently, observability… |
+| [2.1 The Dependency Audit](#prompt-21--the-dependency-audit) | Run this analysis during your Migration Planning phase, before a single line of code is… |
+| [2.2 The State Hunter](#prompt-22--the-state-hunter) | When auditing a service you intend to scale horizontally, to find every place it secretly… |
+| [2.3 The Telemetry Weaver](#prompt-23--the-telemetry-weaver) | Adopt this pattern immediately. If you wait until teams scale independently, observability… |
 
 ---
 

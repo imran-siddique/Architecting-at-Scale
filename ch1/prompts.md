@@ -14,8 +14,8 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 | Prompt | Use it when |
 |--------|-------------|
-| [1.1 The Diagnosis](#prompt-1-1-the-diagnosis) | When your telemetry shows rising p99 latency or connection-pool saturation and you need to… |
-| [1.2 The Zombie Hunter](#prompt-1-2-the-zombie-hunter) | Before any scaling project, to surface dead code paths and unused dependencies you can… |
+| [1.1 The Diagnosis](#prompt-11--the-diagnosis) | When your telemetry shows rising p99 latency or connection-pool saturation and you need to… |
+| [1.2 The Zombie Hunter](#prompt-12--the-zombie-hunter) | Before any scaling project, to surface dead code paths and unused dependencies you can… |
 
 ---
 

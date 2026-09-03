@@ -14,11 +14,11 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 | Prompt | Use it when |
 |--------|-------------|
-| [6.1 The Decomposition Readiness Audit](#prompt-6-1-the-decomposition-readiness-audit) | Use this prompt when evaluating a legacy monolith for decomposition. Run it before the first… |
-| [6.2 The Protocol Selection Audit](#prompt-6-2-the-protocol-selection-audit) | Use this prompt when evaluating whether an existing internal REST API should be migrated to… |
-| [6.3 The Data Ownership Audit](#prompt-6-3-the-data-ownership-audit) | Use this prompt before beginning any service extraction that involves shared database… |
-| [6.4 The API Governance Audit](#prompt-6-4-the-api-governance-audit) | Use this prompt when establishing a governance baseline for existing internal APIs, or when… |
-| [6.5 The Strangler Fig Migration Plan](#prompt-6-5-the-strangler-fig-migration-plan) | Use this prompt at the beginning of a decomposition project, before any extraction work… |
+| [6.1 The Decomposition Readiness Audit](#prompt-61--the-decomposition-readiness-audit) | Use this prompt when evaluating a legacy monolith for decomposition. Run it before the first… |
+| [6.2 The Protocol Selection Audit](#prompt-62--the-protocol-selection-audit) | Use this prompt when evaluating whether an existing internal REST API should be migrated to… |
+| [6.3 The Data Ownership Audit](#prompt-63--the-data-ownership-audit) | Use this prompt before beginning any service extraction that involves shared database… |
+| [6.4 The API Governance Audit](#prompt-64--the-api-governance-audit) | Use this prompt when establishing a governance baseline for existing internal APIs, or when… |
+| [6.5 The Strangler Fig Migration Plan](#prompt-65--the-strangler-fig-migration-plan) | Use this prompt at the beginning of a decomposition project, before any extraction work… |
 
 ---
 

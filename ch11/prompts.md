@@ -14,11 +14,11 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 | Prompt | Use it when |
 |--------|-------------|
-| [11.1 The Correlation Coverage Audit](#prompt-11-1-the-correlation-coverage-audit) | Use this prompt before deploying a new service to production, or when diagnosing a silent… |
-| [11.2 The Outcome Observability Design](#prompt-11-2-the-outcome-observability-design) | Use this prompt when a system has infrastructure monitoring but is missing business… |
-| [11.3 The Alert Rationalization Audit](#prompt-11-3-the-alert-rationalization-audit) | Use this prompt when alert fatigue is degrading the engineering team's ability to respond to… |
-| [11.4 The Log Volume Rationalization](#prompt-11-4-the-log-volume-rationalization) | Use this prompt when log storage costs are growing faster than system traffic, or when… |
-| [11.5 The Self-Healing Architecture Audit](#prompt-11-5-the-self-healing-architecture-audit) | Use this prompt when designing the automated remediation layer for a production system, or… |
+| [11.1 The Correlation Coverage Audit](#prompt-111--the-correlation-coverage-audit) | Use this prompt before deploying a new service to production, or when diagnosing a silent… |
+| [11.2 The Outcome Observability Design](#prompt-112--the-outcome-observability-design) | Use this prompt when a system has infrastructure monitoring but is missing business… |
+| [11.3 The Alert Rationalization Audit](#prompt-113--the-alert-rationalization-audit) | Use this prompt when alert fatigue is degrading the engineering team's ability to respond to… |
+| [11.4 The Log Volume Rationalization](#prompt-114--the-log-volume-rationalization) | Use this prompt when log storage costs are growing faster than system traffic, or when… |
+| [11.5 The Self-Healing Architecture Audit](#prompt-115--the-self-healing-architecture-audit) | Use this prompt when designing the automated remediation layer for a production system, or… |
 
 ---
 

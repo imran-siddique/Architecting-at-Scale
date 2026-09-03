@@ -14,11 +14,11 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 | Prompt | Use it when |
 |--------|-------------|
-| [12.1 The Top Scenario Classification](#prompt-12-1-the-top-scenario-classification) | Use this prompt at the start of any resilience design exercise, before any circuit breaker… |
-| [12.2 The Graceful Degradation Design](#prompt-12-2-the-graceful-degradation-design) | Use this prompt when designing the fallback architecture for a P0 flow, or when a P0 flow… |
-| [12.3 The Resilience Configuration Audit](#prompt-12-3-the-resilience-configuration-audit) | Use this prompt when auditing circuit breaker and bulkhead configuration across a… |
-| [12.4 The Load Shedding Policy Design](#prompt-12-4-the-load-shedding-policy-design) | Use this prompt when designing the load shedding policy for a system serving mixed traffic… |
-| [12.5 The Chaos Experiment Design](#prompt-12-5-the-chaos-experiment-design) | Use this prompt when designing a chaos experiment for a specific resilience mechanism, or… |
+| [12.1 The Top Scenario Classification](#prompt-121--the-top-scenario-classification) | Use this prompt at the start of any resilience design exercise, before any circuit breaker… |
+| [12.2 The Graceful Degradation Design](#prompt-122--the-graceful-degradation-design) | Use this prompt when designing the fallback architecture for a P0 flow, or when a P0 flow… |
+| [12.3 The Resilience Configuration Audit](#prompt-123--the-resilience-configuration-audit) | Use this prompt when auditing circuit breaker and bulkhead configuration across a… |
+| [12.4 The Load Shedding Policy Design](#prompt-124--the-load-shedding-policy-design) | Use this prompt when designing the load shedding policy for a system serving mixed traffic… |
+| [12.5 The Chaos Experiment Design](#prompt-125--the-chaos-experiment-design) | Use this prompt when designing a chaos experiment for a specific resilience mechanism, or… |
 
 ---
 

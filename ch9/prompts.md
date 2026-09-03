@@ -14,11 +14,11 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 | Prompt | Use it when |
 |--------|-------------|
-| [9.1 The Cache Domain Classification Audit](#prompt-9-1-the-cache-domain-classification-audit) | Use this prompt before designing any cache layer, to classify each data type by freshness… |
-| [9.2 The Redis Configuration Audit](#prompt-9-2-the-redis-configuration-audit) | Use this prompt when designing the Redis configuration for a new cache deployment, or when a… |
-| [9.3 The CDN Configuration Audit](#prompt-9-3-the-cdn-configuration-audit) | Use this prompt when auditing an existing CDN configuration for security, performance, and… |
-| [9.4 The Cache Invalidation Design Review](#prompt-9-4-the-cache-invalidation-design-review) | Use this prompt when designing the invalidation strategy for a new cache layer, or when… |
-| [9.5 The Cache Safety Audit](#prompt-9-5-the-cache-safety-audit) | Use this prompt when a cache deployment is exhibiting thundering herd events, unexpected… |
+| [9.1 The Cache Domain Classification Audit](#prompt-91--the-cache-domain-classification-audit) | Use this prompt before designing any cache layer, to classify each data type by freshness… |
+| [9.2 The Redis Configuration Audit](#prompt-92--the-redis-configuration-audit) | Use this prompt when designing the Redis configuration for a new cache deployment, or when a… |
+| [9.3 The CDN Configuration Audit](#prompt-93--the-cdn-configuration-audit) | Use this prompt when auditing an existing CDN configuration for security, performance, and… |
+| [9.4 The Cache Invalidation Design Review](#prompt-94--the-cache-invalidation-design-review) | Use this prompt when designing the invalidation strategy for a new cache layer, or when… |
+| [9.5 The Cache Safety Audit](#prompt-95--the-cache-safety-audit) | Use this prompt when a cache deployment is exhibiting thundering herd events, unexpected… |
 
 ---
 

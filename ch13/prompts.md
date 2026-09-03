@@ -14,11 +14,11 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 | Prompt | Use it when |
 |--------|-------------|
-| [13.1 The Optimization Decision Audit](#prompt-13-1-the-optimization-decision-audit) | Use this prompt before starting any performance optimization project, or when a team is… |
-| [13.2 The Contention Audit](#prompt-13-2-the-contention-audit) | Use this prompt when P0 p99 latency is degrading intermittently without a corresponding… |
-| [13.3 The Performance Budget Audit](#prompt-13-3-the-performance-budget-audit) | Use this prompt when infrastructure costs are growing faster than traffic, or when reviewing… |
-| [13.4 The Capacity Planning Model](#prompt-13-4-the-capacity-planning-model) | Use this prompt to build or update the capacity plan for a P0 service, or before any planned… |
-| [13.5 The Good Enough Audit](#prompt-13-5-the-good-enough-audit) | Use this prompt when reviewing the engineering backlog for optimization work that may have… |
+| [13.1 The Optimization Decision Audit](#prompt-131--the-optimization-decision-audit) | Use this prompt before starting any performance optimization project, or when a team is… |
+| [13.2 The Contention Audit](#prompt-132--the-contention-audit) | Use this prompt when P0 p99 latency is degrading intermittently without a corresponding… |
+| [13.3 The Performance Budget Audit](#prompt-133--the-performance-budget-audit) | Use this prompt when infrastructure costs are growing faster than traffic, or when reviewing… |
+| [13.4 The Capacity Planning Model](#prompt-134--the-capacity-planning-model) | Use this prompt to build or update the capacity plan for a P0 service, or before any planned… |
+| [13.5 The Good Enough Audit](#prompt-135--the-good-enough-audit) | Use this prompt when reviewing the engineering backlog for optimization work that may have… |
 
 ---
 
