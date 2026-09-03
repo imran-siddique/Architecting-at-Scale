@@ -14,11 +14,11 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 | Prompt | Use it when |
 |--------|-------------|
-| [15.1 The Intelligence Choice Audit](#prompt-15-1-the-intelligence-choice-audit) | Use this prompt in an architecture review when a proposed feature includes a model or an… |
-| [15.2 The Agent Production-Readiness Review](#prompt-15-2-the-agent-production-readiness-review) | Use this prompt before promoting an agent from a pilot or demo into production, to find the… |
-| [15.3 The AI Endpoint Readiness Audit](#prompt-15-3-the-ai-endpoint-readiness-audit) | Use this prompt before publishing a model or MCP endpoint that agents can discover and call,… |
-| [15.4 The Agent Governance Design](#prompt-15-4-the-agent-governance-design) | Use this prompt to design the runtime governance for an agent that will take consequential… |
-| [15.5 The Kill Switch and Approval Design](#prompt-15-5-the-kill-switch-and-approval-design) | Use this prompt to design the kill switch and human-in-the-loop gates for an agent before it… |
+| [15.1 The Intelligence Choice Audit](#prompt-151--the-intelligence-choice-audit) | Use this prompt in an architecture review when a proposed feature includes a model or an… |
+| [15.2 The Agent Production-Readiness Review](#prompt-152--the-agent-production-readiness-review) | Use this prompt before promoting an agent from a pilot or demo into production, to find the… |
+| [15.3 The AI Endpoint Readiness Audit](#prompt-153--the-ai-endpoint-readiness-audit) | Use this prompt before publishing a model or MCP endpoint that agents can discover and call,… |
+| [15.4 The Agent Governance Design](#prompt-154--the-agent-governance-design) | Use this prompt to design the runtime governance for an agent that will take consequential… |
+| [15.5 The Kill Switch and Approval Design](#prompt-155--the-kill-switch-and-approval-design) | Use this prompt to design the kill switch and human-in-the-loop gates for an agent before it… |
 
 ---
 

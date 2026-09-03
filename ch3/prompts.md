@@ -14,10 +14,10 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 | Prompt | Use it when |
 |--------|-------------|
-| [3.1 The Open Door Audit](#prompt-3-1-the-open-door-audit) | Right after exposing or scaling new services, to find every endpoint reachable without… |
-| [3.2 The AI Guardrail](#prompt-3-2-the-ai-guardrail) | When you want to stop your team (or an AI coding agent) from repeating a known security… |
-| [3.3 The Policy Enforcer](#prompt-3-3-the-policy-enforcer) | When a compliance requirement (GDPR, PII handling, encryption) must be enforced… |
-| [3.4 The Identity Conversion](#prompt-3-4-the-identity-conversion) | When migrating a service off hardcoded secrets and environment-variable keys onto workload… |
+| [3.1 The Open Door Audit](#prompt-31--the-open-door-audit) | Right after exposing or scaling new services, to find every endpoint reachable without… |
+| [3.2 The AI Guardrail](#prompt-32--the-ai-guardrail) | When you want to stop your team (or an AI coding agent) from repeating a known security… |
+| [3.3 The Policy Enforcer](#prompt-33--the-policy-enforcer) | When a compliance requirement (GDPR, PII handling, encryption) must be enforced… |
+| [3.4 The Identity Conversion](#prompt-34--the-identity-conversion) | When migrating a service off hardcoded secrets and environment-variable keys onto workload… |
 
 ---
 

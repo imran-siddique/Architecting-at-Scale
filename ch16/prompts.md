@@ -14,11 +14,11 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 | Prompt | Use it when |
 |--------|-------------|
-| [16.1 The Stagnation Audit](#prompt-16-1-the-stagnation-audit) | Use this prompt when health metrics are green but the team has slowed or stopped shipping,… |
-| [16.2 The Flag Lifecycle Audit](#prompt-16-2-the-flag-lifecycle-audit) | Use this prompt to audit an accumulated population of feature flags, separate genuine… |
-| [16.3 The Architectural Experiment Design](#prompt-16-3-the-architectural-experiment-design) | Use this prompt when facing a large architectural decision you are tempted to make on… |
-| [16.4 The Feedback Loop Design](#prompt-16-4-the-feedback-loop-design) | Use this prompt to turn a planned feature or change into a ship-and-learn loop, so… |
-| [16.5 The Future-Proofing Audit](#prompt-16-5-the-future-proofing-audit) | Use this prompt to evaluate whether a system is future-proof in the way that matters: safe… |
+| [16.1 The Stagnation Audit](#prompt-161--the-stagnation-audit) | Use this prompt when health metrics are green but the team has slowed or stopped shipping,… |
+| [16.2 The Flag Lifecycle Audit](#prompt-162--the-flag-lifecycle-audit) | Use this prompt to audit an accumulated population of feature flags, separate genuine… |
+| [16.3 The Architectural Experiment Design](#prompt-163--the-architectural-experiment-design) | Use this prompt when facing a large architectural decision you are tempted to make on… |
+| [16.4 The Feedback Loop Design](#prompt-164--the-feedback-loop-design) | Use this prompt to turn a planned feature or change into a ship-and-learn loop, so… |
+| [16.5 The Future-Proofing Audit](#prompt-165--the-future-proofing-audit) | Use this prompt to evaluate whether a system is future-proof in the way that matters: safe… |
 
 ---
 

@@ -14,11 +14,11 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 | Prompt | Use it when |
 |--------|-------------|
-| [14.1 The Cost Surprise Audit](#prompt-14-1-the-cost-surprise-audit) | Use this prompt when the cloud bill has grown faster than your tracked compute and storage,… |
-| [14.2 The Weekly Cost Trend Review](#prompt-14-2-the-weekly-cost-trend-review) | Use this prompt to structure the cost portion of your weekly production fundamentals review… |
-| [14.3 The Managed-Versus-Self-Host Decision](#prompt-14-3-the-managed-versus-self-host-decision) | Use this prompt when an engineer proposes self-hosting an open-source equivalent to save a… |
-| [14.4 The Unit Economics Model](#prompt-14-4-the-unit-economics-model) | Use this prompt to build the cost-per-unit model that turns a raw cloud bill into the single… |
-| [14.5 The AI Cost Governance Design](#prompt-14-5-the-ai-cost-governance-design) | Use this prompt when an AI feature's token cost is climbing without a matching rise in… |
+| [14.1 The Cost Surprise Audit](#prompt-141--the-cost-surprise-audit) | Use this prompt when the cloud bill has grown faster than your tracked compute and storage,… |
+| [14.2 The Weekly Cost Trend Review](#prompt-142--the-weekly-cost-trend-review) | Use this prompt to structure the cost portion of your weekly production fundamentals review… |
+| [14.3 The Managed-Versus-Self-Host Decision](#prompt-143--the-managed-versus-self-host-decision) | Use this prompt when an engineer proposes self-hosting an open-source equivalent to save a… |
+| [14.4 The Unit Economics Model](#prompt-144--the-unit-economics-model) | Use this prompt to build the cost-per-unit model that turns a raw cloud bill into the single… |
+| [14.5 The AI Cost Governance Design](#prompt-145--the-ai-cost-governance-design) | Use this prompt when an AI feature's token cost is climbing without a matching rise in… |
 
 ---
 

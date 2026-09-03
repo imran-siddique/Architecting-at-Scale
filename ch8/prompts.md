@@ -14,11 +14,11 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 | Prompt | Use it when |
 |--------|-------------|
-| [8.1 The Sync-to-Async Migration Audit](#prompt-8-1-the-sync-to-async-migration-audit) | Use this prompt at the start of an event-driven migration, before any broker is selected or… |
-| [8.2 The Broker Selection Audit](#prompt-8-2-the-broker-selection-audit) | Use this prompt when selecting a message broker for a new event-driven system or evaluating… |
-| [8.3 The Idempotency Implementation Audit](#prompt-8-3-the-idempotency-implementation-audit) | Use this prompt when reviewing an existing event consumer for deduplication correctness, or… |
-| [8.4 The Outbox Implementation Review](#prompt-8-4-the-outbox-implementation-review) | Use this prompt when reviewing an Outbox implementation before production deployment, or… |
-| [8.5 The Saga Design Audit](#prompt-8-5-the-saga-design-audit) | Use this prompt when designing a new multi-step workflow, or when evaluating an existing… |
+| [8.1 The Sync-to-Async Migration Audit](#prompt-81--the-sync-to-async-migration-audit) | Use this prompt at the start of an event-driven migration, before any broker is selected or… |
+| [8.2 The Broker Selection Audit](#prompt-82--the-broker-selection-audit) | Use this prompt when selecting a message broker for a new event-driven system or evaluating… |
+| [8.3 The Idempotency Implementation Audit](#prompt-83--the-idempotency-implementation-audit) | Use this prompt when reviewing an existing event consumer for deduplication correctness, or… |
+| [8.4 The Outbox Implementation Review](#prompt-84--the-outbox-implementation-review) | Use this prompt when reviewing an Outbox implementation before production deployment, or… |
+| [8.5 The Saga Design Audit](#prompt-85--the-saga-design-audit) | Use this prompt when designing a new multi-step workflow, or when evaluating an existing… |
 
 ---
 

@@ -14,11 +14,11 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 | Prompt | Use it when |
 |--------|-------------|
-| [5.1 The Micro-Frontend Migration Audit](#prompt-5-1-the-micro-frontend-migration-audit) | Use this prompt during the planning phase of a Micro-Frontend migration to identify hidden… |
-| [5.2 State Architecture Audit](#prompt-5-2-state-architecture-audit) | Use this prompt when migrating from a monolithic global store to a micro-frontend state… |
-| [5.3 Rendering Strategy Assignment](#prompt-5-3-rendering-strategy-assignment) | Use this prompt when auditing an existing application's rendering approach or planning a new… |
-| [5.4 Performance Budget Audit](#prompt-5-4-performance-budget-audit) | Use this prompt during a quarterly performance review or before a major feature launch to… |
-| [5.5 Resilience Audit](#prompt-5-5-resilience-audit) | Use this prompt before a major traffic event (holiday sale, product launch, marketing… |
+| [5.1 The Micro-Frontend Migration Audit](#prompt-51--the-micro-frontend-migration-audit) | Use this prompt during the planning phase of a Micro-Frontend migration to identify hidden… |
+| [5.2 State Architecture Audit](#prompt-52--state-architecture-audit) | Use this prompt when migrating from a monolithic global store to a micro-frontend state… |
+| [5.3 Rendering Strategy Assignment](#prompt-53--rendering-strategy-assignment) | Use this prompt when auditing an existing application's rendering approach or planning a new… |
+| [5.4 Performance Budget Audit](#prompt-54--performance-budget-audit) | Use this prompt during a quarterly performance review or before a major feature launch to… |
+| [5.5 Resilience Audit](#prompt-55--resilience-audit) | Use this prompt before a major traffic event (holiday sale, product launch, marketing… |
 
 ---
 

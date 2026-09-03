@@ -14,11 +14,11 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 | Prompt | Use it when |
 |--------|-------------|
-| [7.1 The Service Discovery Readiness Audit](#prompt-7-1-the-service-discovery-readiness-audit) | Use this prompt before your first multi-service production deployment, or when evaluating… |
-| [7.2 The Resilience Policy Audit](#prompt-7-2-the-resilience-policy-audit) | Use this prompt when designing the circuit breaker and retry configuration for a new service… |
-| [7.3 The Bulkhead Configuration Audit](#prompt-7-3-the-bulkhead-configuration-audit) | Use this prompt when designing the resource isolation strategy for a service with multiple… |
-| [7.4 The Compute Strategy Audit](#prompt-7-4-the-compute-strategy-audit) | Use this prompt during an architecture review when evaluating the runtime strategy for a new… |
-| [7.5 The Auto-Scaling Policy Audit](#prompt-7-5-the-auto-scaling-policy-audit) | Use this prompt when designing or auditing the auto-scaling configuration for a service, or… |
+| [7.1 The Service Discovery Readiness Audit](#prompt-71--the-service-discovery-readiness-audit) | Use this prompt before your first multi-service production deployment, or when evaluating… |
+| [7.2 The Resilience Policy Audit](#prompt-72--the-resilience-policy-audit) | Use this prompt when designing the circuit breaker and retry configuration for a new service… |
+| [7.3 The Bulkhead Configuration Audit](#prompt-73--the-bulkhead-configuration-audit) | Use this prompt when designing the resource isolation strategy for a service with multiple… |
+| [7.4 The Compute Strategy Audit](#prompt-74--the-compute-strategy-audit) | Use this prompt during an architecture review when evaluating the runtime strategy for a new… |
+| [7.5 The Auto-Scaling Policy Audit](#prompt-75--the-auto-scaling-policy-audit) | Use this prompt when designing or auditing the auto-scaling configuration for a service, or… |
 
 ---
 

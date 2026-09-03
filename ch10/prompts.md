@@ -14,11 +14,11 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 | Prompt | Use it when |
 |--------|-------------|
-| [10.1 The SQL vs. NoSQL Decision Audit](#prompt-10-1-the-sql-vs-nosql-decision-audit) | Use this prompt before any database migration decision, whether from relational to NoSQL or… |
-| [10.2 The Sharding Strategy Audit](#prompt-10-2-the-sharding-strategy-audit) | Use this prompt when designing the sharding strategy for a table that has exceeded the… |
-| [10.3 The Index Audit](#prompt-10-3-the-index-audit) | Use this prompt when write performance is degrading on a high-write table, when write IOPS… |
-| [10.4 The Data Access Layer Design Review](#prompt-10-4-the-data-access-layer-design-review) | Use this prompt when designing the DAL for a sharded or multi-store data architecture, or… |
-| [10.5 The Search Engine Migration Audit](#prompt-10-5-the-search-engine-migration-audit) | Use this prompt when evaluating whether to migrate product search from a database LIKE query… |
+| [10.1 The SQL vs. NoSQL Decision Audit](#prompt-101--the-sql-vs-nosql-decision-audit) | Use this prompt before any database migration decision, whether from relational to NoSQL or… |
+| [10.2 The Sharding Strategy Audit](#prompt-102--the-sharding-strategy-audit) | Use this prompt when designing the sharding strategy for a table that has exceeded the… |
+| [10.3 The Index Audit](#prompt-103--the-index-audit) | Use this prompt when write performance is degrading on a high-write table, when write IOPS… |
+| [10.4 The Data Access Layer Design Review](#prompt-104--the-data-access-layer-design-review) | Use this prompt when designing the DAL for a sharded or multi-store data architecture, or… |
+| [10.5 The Search Engine Migration Audit](#prompt-105--the-search-engine-migration-audit) | Use this prompt when evaluating whether to migrate product search from a database LIKE query… |
 
 ---
 

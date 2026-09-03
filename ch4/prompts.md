@@ -14,10 +14,10 @@ prompts are deliberately demanding — they ask for a decision with its reasonin
 
 | Prompt | Use it when |
 |--------|-------------|
-| [4.2 The Cache Policy Audit](#prompt-4-2-the-cache-policy-audit) | When deciding what to push to the edge and you need to separate safely-cacheable content… |
-| [4.3 The Consistency Model Selector](#prompt-4-3-the-consistency-model-selector) | When choosing a consistency model for a specific data type and you want the trade-off made… |
-| [4.4 The Protocol Readiness Check](#prompt-4-4-the-protocol-readiness-check) | Before enabling HTTP/3 in production, to confirm the upgrade will actually help and won't… |
-| [4.1 The Edge Logic Migration](#prompt-4-1-the-edge-logic-migration) | Use this during your Pre-Migration Performance Audit to identify which high-latency… |
+| [4.2 The Cache Policy Audit](#prompt-42--the-cache-policy-audit) | When deciding what to push to the edge and you need to separate safely-cacheable content… |
+| [4.3 The Consistency Model Selector](#prompt-43--the-consistency-model-selector) | When choosing a consistency model for a specific data type and you want the trade-off made… |
+| [4.4 The Protocol Readiness Check](#prompt-44--the-protocol-readiness-check) | Before enabling HTTP/3 in production, to confirm the upgrade will actually help and won't… |
+| [4.1 The Edge Logic Migration](#prompt-41--the-edge-logic-migration) | Use this during your Pre-Migration Performance Audit to identify which high-latency… |
 
 ---
 
