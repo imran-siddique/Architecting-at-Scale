@@ -3,6 +3,23 @@
 The companion repository for the book **Architecting at Scale** (Packt): the per-chapter code,
 extended notes, and all 73 Architect's Prompts that go with the book.
 
+[Get the published book at Packt](https://www.packtpub.com/en-in/product/architecting-at-scale-9781807420963) · [Run ShopFlow](app/README.md) · [Browse the prompts](PROMPTS.md)
+
+## Start here
+
+The runnable code lives in one TypeScript workspace under [`app/`](app/), with chapter
+walkthroughs in `ch1/` through `ch16/`. From the repository root:
+
+```bash
+cd app
+npm run verify
+```
+
+This installs the locked dependencies, builds the workspace, and runs the unit tests.
+See the [ShopFlow setup guide](app/README.md#running-it) for Node requirements and optional
+Redis integration tests. The Chapter 1 monolith deliberately contains the failure modes
+the book investigates; it is a teaching system, not a production starter.
+
 ShopFlow is the running example throughout the book: an online store for home and lifestyle goods
 that begins as a monolith serving 100 orders a day and ends as a globally distributed, observable,
 resilient, cost-governed, AI-augmented system that keeps changing safely. Every chapter solves the
@@ -17,7 +34,8 @@ One folder per chapter, `ch1` through `ch16`:
 |------|---------------|
 | `chN/prompts.md` | The Architect's Prompts from that chapter, verbatim, each with the *When to use this* line |
 | `chN/*.md` | Extended notes, the detail that did not fit on the page |
-| `chN/code/` | Runnable samples for that chapter |
+| `chN/README.md` | Chapter walkthrough, with links to its implementation and tests |
+| [`app/`](app/) | Shared ShopFlow workspace containing the runnable chapter implementations |
 
 And at the root:
 
@@ -59,8 +77,9 @@ one:
 
 ## The ShopFlow stack
 
-The book commits to specific technology so the trade-offs stay concrete. Where a chapter names a
-tool, the samples here use the same one:
+The book uses specific technology so the trade-offs stay concrete. The table describes the
+book's architecture; the repository includes executable models of those decisions, not a
+complete deployment of every listed service. See [the code map](app/README.md#how-chapter-states-are-represented).
 
 | Concern | Choice |
 |---------|--------|
@@ -77,5 +96,7 @@ tool, the samples here use the same one:
 
 ## Status
 
-The prompts are complete for all 16 chapters. Code samples and extended notes are being added
-chapter by chapter; Chapter 5 has the first set of extended notes.
+All 16 technical chapters have prompts and walkthroughs, with their implementations mapped
+in [`app/README.md`](app/README.md). The 73-prompt index is complete; Chapter 5 also has six
+standalone extended notes. Unit tests run without infrastructure. The separate Redis suite
+requires a running Redis instance and also runs in CI.

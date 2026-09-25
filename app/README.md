@@ -19,8 +19,8 @@ of the book: each one is the consequence of the previous chapter's solution.
 | 6: decomposition | `packages/decomposition` |
 | 7: resilience | `packages/resilience` |
 | 8: event-driven | `packages/messaging` |
-| 10: data and databases | `packages/data` |
 | 9: caching | `packages/cache` |
+| 10: data and databases | `packages/data` |
 | 11: observability | `packages/observability` |
 | 12: resilience and degradation | `packages/degradation/` |
 | 13: performance and capacity | `packages/capacity/` |
@@ -68,14 +68,13 @@ app/
     finops/           Chapter 14 - unit economics, review cadence, token governance
     ai-governance/    Chapter 15 - intelligence gates, autonomy ladder, kill switch
     experimentation/  Chapter 16 - maturity stages, flag lifecycle, delivery fitness
-  workers/            queue consumers (Chapter 8 onward)
   db/schema.sql       the relational schema, union across chapters
   docker-compose.yml  MySQL (Ch1), RabbitMQ (Ch8), Redis (Ch9)
 ```
 
 ## Running it
 
-The test suite needs nothing but Node 20+:
+Use Node 22.12+ (the CI major), or a supported Node 20.19+ or 24+ release. Unit tests need no external services:
 
 ```bash
 cd app
@@ -105,7 +104,7 @@ npm run infra:down
 
 ## What the tests are for
 
-They are not coverage. Each names a claim the book makes and proves it, so you can change the
+Each names a claim the book makes and exercises it under the stated assumptions, so you can change the
 implementation and watch which argument breaks.
 
 **Chapter 15: AI-first architecture**

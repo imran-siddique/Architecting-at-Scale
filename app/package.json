@@ -10,7 +10,7 @@
     "workers/*"
   ],
   "engines": {
-    "node": ">=20"
+    "node": "^20.19.0 || ^22.12.0 || >=24.0.0"
   },
   "scripts": {
     "build": "tsc --build",
@@ -29,9 +29,6 @@
   "devDependencies": {
     "@types/node": "^20.14.0",
     "typescript": "^5.5.4",
-    "vitest": "^3.2.7"
-  },
-  "allowScripts": {
-    "esbuild@0.21.5": true
+    "vitest": "^4.1.11"
   }
 }
