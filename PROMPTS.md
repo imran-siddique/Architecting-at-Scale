@@ -2,7 +2,8 @@
 
 All 73 Architect's Prompts from *Architecting at Scale*, across 16 chapters.
 
-Each prompt lives in its chapter folder alongside that chapter's code samples. Every one is
+Each prompt lives in its chapter folder alongside its walkthrough. The code lives in the
+shared [`app/`](app/) workspace. Every prompt is
 reproduced verbatim from the book, with the *When to use this* line that tells you the moment it
 applies.
 
